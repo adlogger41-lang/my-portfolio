@@ -1,0 +1,3435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ROAST & RITUAL — Specialty Coffee</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+    --cream:#f5ead7;
+    --paper:#fff9ee;
+    --espresso:#241711;
+    --brown:#6c3824;
+    --terracotta:#c95738;
+    --orange:#e7793f;
+    --yellow:#f2c75c;
+    --blue:#244f63;
+    --muted:#8e7968;
+    --line:rgba(36,23,17,.15);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--cream);
+    color:var(--espresso);
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+body.no-scroll{
+    overflow:hidden;
+}
+
+img{
+    display:block;
+    width:100%;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================================================
+   GRAIN — CSS ONLY, NO CANVAS
+========================================================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9998;
+    opacity:.035;
+
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--espresso);
+    color:var(--cream);
+    z-index:10000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+.loader.done{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-content{
+    text-align:center;
+}
+
+.loader-mark{
+    width:65px;
+    height:65px;
+    border:1px solid rgba(245,234,215,.5);
+    border-radius:50%;
+    margin:auto;
+
+    display:grid;
+    place-items:center;
+
+    font-family:"Fraunces",serif;
+    font-size:1.7rem;
+
+    animation:spinSlow 3s linear infinite;
+}
+
+.loader-name{
+    margin-top:22px;
+    font-family:"DM Mono",monospace;
+    font-size:.65rem;
+    letter-spacing:.3em;
+}
+
+@keyframes spinSlow{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    width:0;
+    height:4px;
+    background:var(--terracotta);
+    z-index:9999;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:100;
+
+    padding:22px 4vw;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    mix-blend-mode:multiply;
+
+    transition:
+        background .4s ease,
+        padding .4s ease;
+}
+
+.header.scrolled{
+    position:fixed;
+    background:rgba(245,234,215,.92);
+    backdrop-filter:blur(12px);
+    padding:14px 4vw;
+    border-bottom:1px solid var(--line);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-icon{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:var(--terracotta);
+    color:white;
+
+    display:grid;
+    place-items:center;
+
+    font-family:"Fraunces",serif;
+    font-weight:600;
+}
+
+.brand-name{
+    font-family:"Fraunces",serif;
+    font-size:1.25rem;
+    font-weight:600;
+}
+
+.nav{
+    display:flex;
+    gap:32px;
+    align-items:center;
+}
+
+.nav a{
+    font-family:"DM Mono",monospace;
+    font-size:.63rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    position:relative;
+}
+
+.nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:var(--terracotta);
+    transition:.3s ease;
+}
+
+.nav a:hover::after{
+    width:100%;
+}
+
+.order-button{
+    border:0;
+    background:var(--espresso);
+    color:var(--cream);
+
+    padding:12px 19px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+}
+
+.order-button:hover{
+    background:var(--terracotta);
+    transform:translateY(-2px);
+}
+
+.mobile-toggle{
+    display:none;
+    border:0;
+    background:none;
+}
+
+.mobile-toggle span{
+    display:block;
+    width:28px;
+    height:2px;
+    background:var(--espresso);
+    margin:6px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100svh;
+    position:relative;
+    overflow:hidden;
+
+    display:grid;
+    grid-template-columns:52% 48%;
+
+    background:var(--cream);
+}
+
+/* LEFT */
+
+.hero-left{
+    position:relative;
+    padding:
+        clamp(140px,16vh,180px)
+        6vw
+        80px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    z-index:2;
+}
+
+.hero-kicker{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+
+    color:var(--terracotta);
+
+    animation:fadeUp .8s .2s both;
+}
+
+.hero-kicker::before{
+    content:"";
+    width:35px;
+    height:2px;
+    background:var(--terracotta);
+}
+
+.hero-title{
+    margin-top:25px;
+
+    font-family:"Fraunces",serif;
+    font-weight:500;
+
+    font-size:
+        clamp(4.5rem,9vw,9.5rem);
+
+    line-height:.79;
+    letter-spacing:-.075em;
+
+    max-width:850px;
+
+    animation:fadeUp 1s .3s both;
+}
+
+.hero-title .outline{
+    color:transparent;
+    -webkit-text-stroke:2px var(--espresso);
+}
+
+.hero-title .accent{
+    color:var(--terracotta);
+    font-style:italic;
+}
+
+.hero-description{
+    max-width:400px;
+    margin-top:35px;
+
+    font-size:.88rem;
+    line-height:1.8;
+
+    color:#735e50;
+
+    animation:fadeUp 1s .45s both;
+}
+
+.hero-actions{
+    margin-top:35px;
+
+    display:flex;
+    align-items:center;
+    gap:22px;
+
+    animation:fadeUp 1s .55s both;
+}
+
+.primary{
+    background:var(--espresso);
+    color:var(--cream);
+    border:0;
+
+    padding:17px 24px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.63rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+.primary:hover{
+    background:var(--terracotta);
+    transform:translateY(-3px);
+}
+
+.secondary{
+    font-family:"DM Mono",monospace;
+    font-size:.62rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+
+    border-bottom:1px solid var(--espresso);
+    padding-bottom:6px;
+}
+
+/* OPEN STATUS */
+
+.open-status{
+    position:absolute;
+    left:6vw;
+    bottom:30px;
+
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.58rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#5e9c55;
+    box-shadow:0 0 0 5px rgba(94,156,85,.12);
+}
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.hero-right{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+.hero-image{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.04),
+            rgba(0,0,0,.25)
+        ),
+        url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=88")
+        center/cover;
+
+    transform:scale(1.06);
+
+    animation:
+        heroImage 1.4s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+@keyframes heroImage{
+    to{
+        transform:scale(1);
+    }
+}
+
+.hero-image-label{
+    position:absolute;
+    right:25px;
+    bottom:30px;
+
+    color:white;
+
+    writing-mode:vertical-rl;
+
+    font-family:"DM Mono",monospace;
+    font-size:.58rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+/* FLOATING STICKER */
+
+.sticker{
+    position:absolute;
+    z-index:5;
+
+    left:-38px;
+    bottom:70px;
+
+    width:105px;
+    height:105px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
+
+    display:grid;
+    place-items:center;
+
+    text-align:center;
+
+    font-family:"Fraunces",serif;
+    font-size:1rem;
+
+    transform:rotate(-12deg);
+
+    animation:
+        floatSticker 4s ease-in-out infinite;
+}
+
+@keyframes floatSticker{
+    0%,100%{
+        transform:rotate(-12deg) translateY(0);
+    }
+    50%{
+        transform:rotate(-7deg) translateY(-9px);
+    }
+}
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+    background:var(--terracotta);
+    color:var(--cream);
+
+    overflow:hidden;
+    white-space:nowrap;
+
+    border-top:1px solid var(--espresso);
+    border-bottom:1px solid var(--espresso);
+}
+
+.marquee-track{
+    display:inline-flex;
+    align-items:center;
+
+    padding:18px 0;
+
+    animation:
+        marquee 24s linear infinite;
+}
+
+.marquee span{
+    font-family:"Fraunces",serif;
+    font-size:1.4rem;
+    margin:0 20px;
+}
+
+.marquee .star{
+    color:var(--yellow);
+}
+
+@keyframes marquee{
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro{
+    padding:130px 7vw;
+
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:100px;
+
+    position:relative;
+}
+
+.intro-number{
+    font-family:"DM Mono",monospace;
+    font-size:.6rem;
+    color:var(--terracotta);
+}
+
+.intro h2{
+    margin-top:18px;
+
+    font-family:"Fraunces",serif;
+    font-weight:500;
+
+    font-size:clamp(3.5rem,6vw,6.5rem);
+    line-height:.87;
+    letter-spacing:-.06em;
+}
+
+.intro h2 em{
+    color:var(--terracotta);
+}
+
+.intro-copy{
+    align-self:end;
+    max-width:550px;
+}
+
+.intro-copy p{
+    font-size:1.05rem;
+    line-height:1.9;
+    color:#705d4e;
+}
+
+.stats{
+    display:flex;
+    gap:45px;
+
+    margin-top:50px;
+}
+
+.stat strong{
+    display:block;
+
+    font-family:"Fraunces",serif;
+    font-size:2.8rem;
+    font-weight:500;
+}
+
+.stat span{
+    display:block;
+
+    margin-top:3px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.55rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+}
+
+/* =========================================================
+   COFFEE BEAN FLOATING DECOR
+========================================================= */
+
+.bean{
+    position:absolute;
+    width:22px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:var(--brown);
+
+    opacity:.9;
+
+    transform:rotate(35deg);
+
+    pointer-events:none;
+}
+
+.bean::after{
+    content:"";
+
+    position:absolute;
+
+    width:2px;
+    height:22px;
+
+    background:var(--cream);
+
+    left:10px;
+    top:4px;
+
+    border-radius:100%;
+}
+
+/* =========================================================
+   FEATURE SPLIT
+========================================================= */
+
+.feature{
+    padding:40px 5vw 130px;
+
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:25px;
+}
+
+.feature-photo{
+    height:650px;
+    overflow:hidden;
+    position:relative;
+}
+
+.feature-photo img{
+    height:100%;
+    object-fit:cover;
+
+    transition:
+        transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.feature-photo:hover img{
+    transform:scale(1.045);
+}
+
+.photo-tag{
+    position:absolute;
+    left:25px;
+    top:25px;
+
+    background:var(--yellow);
+
+    padding:9px 13px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.55rem;
+    text-transform:uppercase;
+}
+
+.feature-card{
+    background:var(--blue);
+    color:var(--cream);
+
+    padding:55px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    min-height:650px;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.feature-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    border:1px solid rgba(245,234,215,.2);
+    border-radius:50%;
+
+    right:-80px;
+    bottom:-80px;
+}
+
+.feature-card small{
+    font-family:"DM Mono",monospace;
+    font-size:.58rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+}
+
+.feature-card h2{
+    font-family:"Fraunces",serif;
+    font-size:clamp(3.5rem,5vw,5.5rem);
+    font-weight:500;
+    line-height:.82;
+    letter-spacing:-.06em;
+}
+
+.feature-card p{
+    color:rgba(245,234,215,.7);
+    line-height:1.8;
+    font-size:.85rem;
+    max-width:390px;
+}
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.menu-section{
+    background:var(--paper);
+    padding:140px 7vw;
+}
+
+.menu-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+
+    margin-bottom:60px;
+}
+
+.menu-heading h2{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(4rem,7vw,7.5rem);
+    line-height:.8;
+    letter-spacing:-.07em;
+}
+
+.menu-heading p{
+    max-width:280px;
+    font-size:.78rem;
+    line-height:1.7;
+    color:var(--muted);
+}
+
+/* TABS */
+
+.menu-tabs{
+    display:flex;
+    gap:8px;
+
+    margin-bottom:45px;
+
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.menu-tabs::-webkit-scrollbar{
+    display:none;
+}
+
+.menu-tab{
+    flex:none;
+
+    border:1px solid var(--line);
+    background:transparent;
+
+    padding:12px 18px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.58rem;
+    text-transform:uppercase;
+
+    transition:.3s ease;
+}
+
+.menu-tab.active,
+.menu-tab:hover{
+    background:var(--espresso);
+    color:var(--cream);
+}
+
+/* MENU GRID */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:80px;
+}
+
+.menu-item{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:20px;
+
+    padding:27px 0;
+
+    border-top:1px solid var(--line);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+}
+
+.menu-item.hidden{
+    display:none;
+}
+
+.menu-item:hover{
+    transform:translateX(7px);
+}
+
+.menu-item h3{
+    font-family:"Fraunces",serif;
+    font-size:1.65rem;
+    font-weight:500;
+}
+
+.menu-item p{
+    margin-top:7px;
+
+    color:#897568;
+
+    font-size:.73rem;
+    line-height:1.6;
+}
+
+.price{
+    font-family:"DM Mono",monospace;
+    font-size:.75rem;
+    color:var(--terracotta);
+}
+
+/* =========================================================
+   INTERACTIVE DRINK
+========================================================= */
+
+.drink-lab{
+    background:var(--yellow);
+
+    padding:120px 7vw;
+
+    overflow:hidden;
+    position:relative;
+}
+
+.drink-lab-inner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+}
+
+.lab-copy h2{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(4rem,6vw,6.5rem);
+    line-height:.82;
+    letter-spacing:-.07em;
+}
+
+.lab-copy p{
+    margin-top:25px;
+    max-width:430px;
+
+    line-height:1.8;
+    font-size:.86rem;
+}
+
+.lab-controls{
+    margin-top:35px;
+
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.lab-button{
+    border:1px solid var(--espresso);
+    background:transparent;
+
+    padding:12px 17px;
+
+    font-family:"DM Mono",monospace;
+    font-size:.57rem;
+    text-transform:uppercase;
+
+    transition:.3s ease;
+}
+
+.lab-button.active,
+.lab-button:hover{
+    background:var(--espresso);
+    color:var(--yellow);
+}
+
+/* CUP */
+
+.cup-stage{
+    height:450px;
+
+    display:grid;
+    place-items:center;
+
+    position:relative;
+}
+
+.cup{
+    width:210px;
+    height:165px;
+
+    background:#f5f0e8;
+
+    border-radius:
+        25px
+        25px
+        65px
+        65px;
+
+    position:relative;
+
+    box-shadow:
+        0 25px 40px rgba(36,23,17,.18);
+
+    transition:
+        background .4s ease,
+        transform .5s cubic-bezier(.2,.8,.2,1);
+}
+
+.cup::before{
+    content:"";
+
+    position:absolute;
+
+    width:65px;
+    height:70px;
+
+    border:22px solid #f5f0e8;
+
+    border-left:0;
+
+    border-radius:0 50% 50% 0;
+
+    right:-60px;
+    top:40px;
+}
+
+.coffee{
+    position:absolute;
+
+    width:165px;
+    height:40px;
+
+    background:#3c2115;
+
+    border-radius:50%;
+
+    left:22px;
+    top:15px;
+
+    transition:background .4s ease;
+}
+
+.steam{
+    position:absolute;
+
+    width:20px;
+    height:70px;
+
+    border-left:2px solid rgba(255,255,255,.6);
+
+    border-radius:50%;
+
+    top:-70px;
+
+    animation:steam 2s ease-in-out infinite;
+}
+
+.steam.one{
+    left:55px;
+}
+
+.steam.two{
+    left:100px;
+    animation-delay:.5s;
+}
+
+@keyframes steam{
+    0%,100%{
+        transform:translateY(10px);
+        opacity:0;
+    }
+
+    50%{
+        transform:translateY(-5px);
+        opacity:.7;
+    }
+}
+
+.cup-label{
+    position:absolute;
+
+    font-family:"DM Mono",monospace;
+    font-size:.58rem;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+
+    bottom:20px;
+}
+
+/* =========================================================
+   HORIZONTAL PHOTO STRIP
+========================================================= */
+
+.photo-strip{
+    padding:120px 0;
+    overflow:hidden;
+}
+
+.photo-strip-header{
+    padding:0 7vw 45px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+}
+
+.photo-strip-header h2{
+    font-family:"Fraunces",serif;
+    font-size:clamp(3.5rem,6vw,6rem);
+    line-height:.8;
+    font-weight:500;
+    letter-spacing:-.06em;
+}
+
+.photo-track{
+    display:flex;
+    gap:18px;
+
+    width:max-content;
+
+    transform:translateX(0);
+    transition:transform .1s linear;
+}
+
+.photo-track img{
+    width:390px;
+    height:500px;
+    object-fit:cover;
+
+    flex:none;
+}
+
+.photo-track img:nth-child(2n){
+    margin-top:70px;
+}
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.story{
+    background:var(--espresso);
+    color:var(--cream);
+
+    padding:140px 7vw;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.story-content{
+    max-width:1000px;
+}
+
+.story small{
+    font-family:"DM Mono",monospace;
+    color:var(--yellow);
+    font-size:.58rem;
+    letter-spacing:.18em;
+}
+
+.story h2{
+    margin-top:30px;
+
+    font-family:"Fraunces",serif;
+    font-weight:500;
+
+    font-size:clamp(4rem,8vw,9rem);
+
+    line-height:.82;
+
+    letter-spacing:-.07em;
+}
+
+.story h2 em{
+    color:var(--orange);
+}
+
+.story p{
+    max-width:500px;
+    margin-top:45px;
+
+    color:rgba(245,234,215,.65);
+
+    line-height:1.9;
+}
+
+/* BIG CIRCLE */
+
+.story-circle{
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(245,234,215,.12);
+
+    right:-180px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info{
+    padding:100px 7vw;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    border-bottom:1px solid var(--line);
+}
+
+.info-block{
+    padding:30px;
+    border-right:1px solid var(--line);
+}
+
+.info-block:last-child{
+    border:0;
+}
+
+.info-number{
+    font-family:"DM Mono",monospace;
+    color:var(--terracotta);
+    font-size:.6rem;
+}
+
+.info h3{
+    margin-top:20px;
+
+    font-family:"Fraunces",serif;
+    font-size:2.3rem;
+    font-weight:500;
+}
+
+.info p{
+    margin-top:12px;
+
+    color:var(--muted);
+    font-size:.75rem;
+    line-height:1.8;
+}
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final{
+    min-height:75vh;
+
+    background:
+        linear-gradient(
+            rgba(36,23,17,.1),
+            rgba(36,23,17,.3)
+        ),
+        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=2200&q=88")
+        center/cover;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.final::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(36,23,17,.55)
+        );
+}
+
+.final-content{
+    position:relative;
+    z-index:2;
+}
+
+.final small{
+    font-family:"DM Mono",monospace;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    font-size:.58rem;
+}
+
+.final h2{
+    margin-top:25px;
+
+    font-family:"Fraunces",serif;
+    font-weight:500;
+
+    font-size:clamp(4.5rem,9vw,10rem);
+
+    line-height:.76;
+
+    letter-spacing:-.08em;
+}
+
+.final h2 em{
+    color:var(--yellow);
+}
+
+.final .primary{
+    margin-top:45px;
+
+    background:var(--yellow);
+    color:var(--espresso);
+}
+
+.final .primary:hover{
+    background:white;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:var(--espresso);
+    color:var(--cream);
+
+    padding:75px 7vw 30px;
+}
+
+.footer-main{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:50px;
+
+    padding-bottom:70px;
+}
+
+.footer-logo{
+    font-family:"Fraunces",serif;
+    font-size:3rem;
+}
+
+.footer-description{
+    margin-top:15px;
+
+    max-width:330px;
+
+    color:rgba(245,234,215,.55);
+
+    font-size:.75rem;
+    line-height:1.8;
+}
+
+.footer-col h4{
+    font-family:"DM Mono",monospace;
+    font-size:.55rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+
+    color:var(--yellow);
+
+    margin-bottom:20px;
+}
+
+.footer-col a{
+    display:block;
+
+    margin:9px 0;
+
+    font-size:.75rem;
+
+    color:rgba(245,234,215,.7);
+}
+
+.footer-col a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(245,234,215,.13);
+
+    padding-top:25px;
+
+    display:flex;
+    justify-content:space-between;
+
+    font-family:"DM Mono",monospace;
+    font-size:.5rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+
+    color:rgba(245,234,215,.4);
+}
+
+/* =========================================================
+   ORDER DRAWER
+========================================================= */
+
+.drawer-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(20,10,5,.5);
+
+    z-index:500;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s ease;
+}
+
+.drawer-overlay.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.order-drawer{
+    position:fixed;
+
+    top:0;
+    right:0;
+
+    width:min(470px,92vw);
+    height:100vh;
+
+    background:var(--paper);
+
+    z-index:501;
+
+    transform:translateX(100%);
+
+    transition:
+        transform .55s cubic-bezier(.77,0,.18,1);
+
+    padding:35px;
+
+    overflow-y:auto;
+}
+
+.order-drawer.open{
+    transform:translateX(0);
+}
+
+.drawer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.drawer-top h2{
+    font-family:"Fraunces",serif;
+    font-size:2.5rem;
+    font-weight:500;
+}
+
+.close-drawer{
+    border:0;
+    background:none;
+
+    font-size:1.8rem;
+}
+
+.cart-list{
+    padding:30px 0;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:17px 0;
+
+    border-bottom:1px solid var(--line);
+}
+
+.cart-item-name{
+    font-family:"Fraunces",serif;
+    font-size:1.25rem;
+}
+
+.cart-item-price{
+    font-family:"DM Mono",monospace;
+    font-size:.7rem;
+}
+
+.drawer-total{
+    margin-top:20px;
+
+    display:flex;
+    justify-content:space-between;
+
+    font-family:"DM Mono",monospace;
+    font-size:.7rem;
+    text-transform:uppercase;
+}
+
+.checkout{
+    width:100%;
+    margin-top:25px;
+
+    padding:18px;
+
+    background:var(--terracotta);
+    color:white;
+
+    border:0;
+
+    font-family:"DM Mono",monospace;
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+}
+
+/* =========================================================
+   REVEALS
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav,
+    .header > .order-button{
+        display:none;
+    }
+
+    .mobile-toggle{
+        display:block;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+    }
+
+    .hero-left{
+        min-height:65vh;
+        padding:140px 7vw 70px;
+    }
+
+    .hero-right{
+        min-height:55vh;
+    }
+
+    .hero-title{
+        font-size:clamp(4.5rem,18vw,7rem);
+    }
+
+    .sticker{
+        left:auto;
+        right:20px;
+        bottom:25px;
+    }
+
+    .intro{
+        grid-template-columns:1fr;
+        gap:60px;
+    }
+
+    .feature{
+        grid-template-columns:1fr;
+    }
+
+    .feature-photo,
+    .feature-card{
+        min-height:550px;
+        height:550px;
+    }
+
+    .drink-lab-inner{
+        grid-template-columns:1fr;
+    }
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info{
+        grid-template-columns:1fr;
+    }
+
+    .info-block{
+        border-right:0;
+        border-bottom:1px solid var(--line);
+    }
+
+    .footer-main{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        padding:18px 6vw;
+    }
+
+    .hero-left{
+        min-height:70vh;
+        padding:130px 7vw 60px;
+    }
+
+    .hero-right{
+        min-height:50vh;
+    }
+
+    .hero-description{
+        font-size:.8rem;
+    }
+
+    .hero-actions{
+        flex-wrap:wrap;
+    }
+
+    .intro,
+    .menu-section,
+    .drink-lab,
+    .story{
+        padding:90px 7vw;
+    }
+
+    .feature{
+        padding:20px 5vw 90px;
+    }
+
+    .feature-photo,
+    .feature-card{
+        height:470px;
+        min-height:470px;
+    }
+
+    .feature-card{
+        padding:35px;
+    }
+
+    .menu-heading{
+        display:block;
+    }
+
+    .menu-heading p{
+        margin-top:25px;
+    }
+
+    .menu-grid{
+        display:block;
+    }
+
+    .photo-track img{
+        width:280px;
+        height:380px;
+    }
+
+    .photo-strip{
+        padding:90px 0;
+    }
+
+    .story-circle{
+        width:300px;
+        height:300px;
+        right:-180px;
+    }
+
+    .footer-main{
+        grid-template-columns:1fr;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .cup-stage{
+        height:330px;
+    }
+
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader">
+
+    <div class="loader-content">
+
+        <div class="loader-mark">
+            R
+        </div>
+
+        <div class="loader-name">
+            ROAST & RITUAL
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div class="progress"></div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <a href="#" class="brand">
+
+        <div class="brand-icon">
+            R
+        </div>
+
+        <div class="brand-name">
+            Roast & Ritual
+        </div>
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="#story">
+            Our Story
+        </a>
+
+        <a href="#menu">
+            Menu
+        </a>
+
+        <a href="#space">
+            The Space
+        </a>
+
+        <a href="#visit">
+            Visit
+        </a>
+
+    </nav>
+
+
+    <button class="order-button open-order">
+        Order Ahead
+    </button>
+
+
+    <button class="mobile-toggle">
+
+        <span></span>
+        <span></span>
+
+    </button>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <div class="hero-kicker">
+            Specialty coffee · Bahir Dar
+        </div>
+
+
+        <h1 class="hero-title">
+
+            Coffee
+            <span class="outline">worth</span>
+            <span class="accent">staying for.</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Small-batch Ethiopian coffee, slow mornings,
+            good food and a room designed for staying
+            a little longer.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a href="#menu" class="primary">
+                Explore the menu
+            </a>
+
+            <a href="#visit" class="secondary">
+                Find us →
+            </a>
+
+        </div>
+
+
+        <div class="open-status">
+
+            <span class="status-dot"></span>
+
+            Open today · 6:30 AM — 9:00 PM
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-right">
+
+        <div class="hero-image"></div>
+
+
+        <div class="hero-image-label">
+            Brewed daily · Est. 2026
+        </div>
+
+
+        <div class="sticker">
+            Ethiopian<br>
+            beans<br>
+            only.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+
+<div class="marquee">
+
+    <div class="marquee-track">
+
+        <span>ETHIOPIAN COFFEE</span>
+        <span class="star">✦</span>
+
+        <span>GOOD FOOD</span>
+        <span class="star">✦</span>
+
+        <span>SLOW MORNINGS</span>
+        <span class="star">✦</span>
+
+        <span>GOOD PEOPLE</span>
+        <span class="star">✦</span>
+
+        <span>ETHIOPIAN COFFEE</span>
+        <span class="star">✦</span>
+
+        <span>GOOD FOOD</span>
+        <span class="star">✦</span>
+
+        <span>SLOW MORNINGS</span>
+        <span class="star">✦</span>
+
+        <span>GOOD PEOPLE</span>
+        <span class="star">✦</span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="intro reveal" id="story">
+
+    <div>
+
+        <div class="intro-number">
+            01 / WHY WE EXIST
+        </div>
+
+        <h2>
+            Not just<br>
+            another <em>coffee shop.</em>
+        </h2>
+
+    </div>
+
+
+    <div class="intro-copy">
+
+        <p>
+
+            We believe coffee should make you slow down.
+            Our beans are sourced from Ethiopia's finest
+            growing regions and roasted in small batches
+            to bring out what makes each origin special.
+
+            Come for the espresso. Stay for the conversation.
+
+        </p>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <strong>04</strong>
+
+                <span>
+                    Origins
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>12</strong>
+
+                <span>
+                    Daily Bakes
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>01</strong>
+
+                <span>
+                    Good Room
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DECORATIVE BEANS -->
+
+<div class="bean" style="top:1050px;left:12%;"></div>
+<div class="bean" style="top:1200px;right:15%;transform:rotate(-25deg)"></div>
+
+
+<!-- =====================================================
+     FEATURE
+===================================================== -->
+
+<section class="feature" id="space">
+
+    <div class="feature-photo reveal">
+
+        <img
+            src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=88"
+            alt="Warm coffee shop interior"
+            loading="lazy"
+        >
+
+        <div class="photo-tag">
+            Come inside
+        </div>
+
+    </div>
+
+
+    <div class="feature-card reveal">
+
+        <small>
+            The space
+        </small>
+
+
+        <h2>
+            Stay<br>
+            awhile.
+        </h2>
+
+
+        <p>
+
+            Sunlight, natural textures, comfortable corners
+            and enough tables for a laptop, a conversation
+            or absolutely nothing at all.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU
+===================================================== -->
+
+<section class="menu-section" id="menu">
+
+    <div class="menu-heading reveal">
+
+        <h2>
+            The menu.
+        </h2>
+
+        <p>
+
+            From bright Ethiopian pour-overs to
+            buttery pastries and slow brunches.
+
+            Everything is made to order.
+
+        </p>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="menu-tabs reveal">
+
+        <button
+            class="menu-tab active"
+            data-filter="all"
+        >
+            All
+        </button>
+
+        <button
+            class="menu-tab"
+            data-filter="coffee"
+        >
+            Coffee
+        </button>
+
+        <button
+            class="menu-tab"
+            data-filter="cold"
+        >
+            Cold
+        </button>
+
+        <button
+            class="menu-tab"
+            data-filter="food"
+        >
+            Food
+        </button>
+
+        <button
+            class="menu-tab"
+            data-filter="sweet"
+        >
+            Sweet
+        </button>
+
+    </div>
+
+
+    <div class="menu-grid">
+
+
+        <article class="menu-item" data-category="coffee">
+
+            <div>
+
+                <h3>
+                    Ethiopian Pour Over
+                </h3>
+
+                <p>
+                    Floral · citrus · honey
+                </p>
+
+            </div>
+
+            <div class="price">
+                180 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="coffee">
+
+            <div>
+
+                <h3>
+                    Flat White
+                </h3>
+
+                <p>
+                    Double espresso · silky milk
+                </p>
+
+            </div>
+
+            <div class="price">
+                150 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="coffee">
+
+            <div>
+
+                <h3>
+                    Signature Espresso
+                </h3>
+
+                <p>
+                    Dark chocolate · caramel
+                </p>
+
+            </div>
+
+            <div class="price">
+                120 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="cold">
+
+            <div>
+
+                <h3>
+                    Cold Brew
+                </h3>
+
+                <p>
+                    18-hour steep · smooth · bright
+                </p>
+
+            </div>
+
+            <div class="price">
+                170 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="cold">
+
+            <div>
+
+                <h3>
+                    Iced Honey Latte
+                </h3>
+
+                <p>
+                    Espresso · milk · local honey
+                </p>
+
+            </div>
+
+            <div class="price">
+                190 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="food">
+
+            <div>
+
+                <h3>
+                    Avocado Toast
+                </h3>
+
+                <p>
+                    Sourdough · avocado · herbs
+                </p>
+
+            </div>
+
+            <div class="price">
+                260 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="food">
+
+            <div>
+
+                <h3>
+                    Morning Eggs
+                </h3>
+
+                <p>
+                    Eggs · sourdough · greens
+                </p>
+
+            </div>
+
+            <div class="price">
+                280 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="sweet">
+
+            <div>
+
+                <h3>
+                    Cardamom Bun
+                </h3>
+
+                <p>
+                    Fresh baked · cardamom · butter
+                </p>
+
+            </div>
+
+            <div class="price">
+                130 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="sweet">
+
+            <div>
+
+                <h3>
+                    Chocolate Tart
+                </h3>
+
+                <p>
+                    Dark chocolate · sea salt
+                </p>
+
+            </div>
+
+            <div class="price">
+                160 ETB
+            </div>
+
+        </article>
+
+
+        <article class="menu-item" data-category="sweet">
+
+            <div>
+
+                <h3>
+                    Banana Bread
+                </h3>
+
+                <p>
+                    Warm banana · walnut · cinnamon
+                </p>
+
+            </div>
+
+            <div class="price">
+                140 ETB
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DRINK LAB
+===================================================== -->
+
+<section class="drink-lab">
+
+    <div class="drink-lab-inner">
+
+        <div class="lab-copy reveal">
+
+            <small
+                style="
+                font-family:'DM Mono';
+                font-size:.58rem;
+                text-transform:uppercase;
+                letter-spacing:.15em;
+                "
+            >
+                Build your cup
+            </small>
+
+
+            <h2>
+                Your coffee.<br>
+                Your way.
+            </h2>
+
+
+            <p>
+
+                Play with the roast profile and discover
+                which cup fits your mood today.
+
+            </p>
+
+
+            <div class="lab-controls">
+
+                <button
+                    class="lab-button active"
+                    data-drink="classic"
+                >
+                    Classic
+                </button>
+
+                <button
+                    class="lab-button"
+                    data-drink="latte"
+                >
+                    Latte
+                </button>
+
+                <button
+                    class="lab-button"
+                    data-drink="berry"
+                >
+                    Berry
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="cup-stage reveal">
+
+            <div class="cup">
+
+                <div class="steam one"></div>
+                <div class="steam two"></div>
+
+                <div class="coffee"></div>
+
+            </div>
+
+
+            <div class="cup-label">
+                Today's mood → <span id="drinkName">
+                    Classic
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PHOTO STRIP
+===================================================== -->
+
+<section class="photo-strip">
+
+    <div class="photo-strip-header reveal">
+
+        <h2>
+            Around here.
+        </h2>
+
+        <span
+            style="
+            font-family:'DM Mono';
+            font-size:.55rem;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            "
+        >
+            Scroll / drag
+        </span>
+
+    </div>
+
+
+    <div class="photo-track" id="photoTrack">
+
+        <img
+            src="https://images.unsplash.com/photo-1511081692775-05d0f180a065?auto=format&fit=crop&w=900&q=82"
+            alt="Coffee"
+            loading="lazy"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=82"
+            alt="Cafe interior"
+            loading="lazy"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=82"
+            alt="Coffee cup"
+            loading="lazy"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=82"
+            alt="Coffee beans"
+            loading="lazy"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=82"
+            alt="Cafe table"
+            loading="lazy"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1442975631115-c4f7b05b8a2c?auto=format&fit=crop&w=900&q=82"
+            alt="Coffee shop"
+            loading="lazy"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STORY
+===================================================== -->
+
+<section class="story">
+
+    <div class="story-circle"></div>
+
+    <div class="story-content reveal">
+
+        <small>
+            Where the beans begin
+        </small>
+
+
+        <h2>
+
+            From <em>soil</em><br>
+            to cup.
+
+        </h2>
+
+
+        <p>
+
+            Every coffee tells a place story.
+
+            We work with Ethiopian producers whose
+            coffees carry the character of their land —
+            from high-altitude forests to smallholder farms.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INFORMATION
+===================================================== -->
+
+<section class="info" id="visit">
+
+
+    <div class="info-block reveal">
+
+        <div class="info-number">
+            01
+        </div>
+
+        <h3>
+            Visit
+        </h3>
+
+        <p>
+
+            Lake Road<br>
+            Bahir Dar, Ethiopia<br>
+            Near the waterfront
+
+        </p>
+
+    </div>
+
+
+    <div class="info-block reveal">
+
+        <div class="info-number">
+            02
+        </div>
+
+        <h3>
+            Hours
+        </h3>
+
+        <p>
+
+            Mon — Fri · 6:30 — 21:00<br>
+            Sat — Sun · 7:00 — 22:00
+
+        </p>
+
+    </div>
+
+
+    <div class="info-block reveal">
+
+        <div class="info-number">
+            03
+        </div>
+
+        <h3>
+            Come in
+        </h3>
+
+        <p>
+
+            Wi-Fi · outlets · outdoor seating<br>
+            Takeaway · order ahead
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section class="final">
+
+    <div class="final-content reveal">
+
+        <small>
+            Your next coffee break
+        </small>
+
+
+        <h2>
+
+            Make room<br>
+            for <em>coffee.</em>
+
+        </h2>
+
+
+        <button class="primary open-order">
+            Order ahead
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-main">
+
+        <div>
+
+            <div class="footer-logo">
+                Roast & Ritual
+            </div>
+
+            <p class="footer-description">
+
+                A fictional specialty coffee shop concept
+                created as a portfolio demonstration.
+
+            </p>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>
+                Explore
+            </h4>
+
+            <a href="#story">
+                Our Story
+            </a>
+
+            <a href="#menu">
+                Menu
+            </a>
+
+            <a href="#space">
+                The Space
+            </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>
+                Visit
+            </h4>
+
+            <a href="#visit">
+                Location
+            </a>
+
+            <a href="#visit">
+                Opening Hours
+            </a>
+
+            <a href="#">
+                Directions
+            </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>
+                Say hello
+            </h4>
+
+            <a href="#">
+                Instagram
+            </a>
+
+            <a href="#">
+                WhatsApp
+            </a>
+
+            <a href="tel:+251900000000">
+                +251 90 000 0000
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Roast & Ritual
+        </span>
+
+        <span>
+            Portfolio concept · Ethiopia
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     ORDER OVERLAY
+===================================================== -->
+
+<div class="drawer-overlay"></div>
+
+
+<!-- ORDER DRAWER -->
+
+<aside class="order-drawer">
+
+    <div class="drawer-top">
+
+        <h2>
+            Your order.
+        </h2>
+
+        <button class="close-drawer">
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="cart-list">
+
+        <div class="cart-item">
+
+            <div>
+
+                <div class="cart-item-name">
+                    Flat White
+                </div>
+
+                <small>
+                    Double espresso · silky milk
+                </small>
+
+            </div>
+
+            <div class="cart-item-price">
+                150 ETB
+            </div>
+
+        </div>
+
+
+        <div class="cart-item">
+
+            <div>
+
+                <div class="cart-item-name">
+                    Cardamom Bun
+                </div>
+
+                <small>
+                    Fresh baked
+                </small>
+
+            </div>
+
+            <div class="cart-item-price">
+                130 ETB
+            </div>
+
+        </div>
+
+
+        <div class="cart-item">
+
+            <div>
+
+                <div class="cart-item-name">
+                    Cold Brew
+                </div>
+
+                <small>
+                    18-hour steep
+                </small>
+
+            </div>
+
+            <div class="cart-item-price">
+                170 ETB
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="drawer-total">
+
+        <span>
+            Estimated total
+        </span>
+
+        <strong>
+            450 ETB
+        </strong>
+
+    </div>
+
+
+    <button
+        class="checkout"
+        id="checkout"
+    >
+        Continue order
+    </button>
+
+</aside>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .querySelector(".loader")
+            .classList.add("done");
+
+    }, 700);
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header =
+    document.querySelector(".header");
+
+window.addEventListener("scroll", () => {
+
+    header.classList.toggle(
+        "scrolled",
+        window.scrollY > 70
+    );
+
+});
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+const progress =
+    document.querySelector(".progress");
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop = window.scrollY;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    progress.style.width =
+        `${(scrollTop / scrollHeight) * 100}%`;
+
+});
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("visible");
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+
+/* =========================================================
+   MENU FILTER
+========================================================= */
+
+const tabs =
+    document.querySelectorAll(".menu-tab");
+
+const items =
+    document.querySelectorAll(".menu-item");
+
+
+tabs.forEach(tab => {
+
+    tab.addEventListener("click", () => {
+
+        tabs.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+        tab.classList.add("active");
+
+        const filter =
+            tab.dataset.filter;
+
+        items.forEach(item => {
+
+            const category =
+                item.dataset.category;
+
+            if(
+                filter === "all" ||
+                category === filter
+            ){
+
+                item.classList.remove("hidden");
+
+                requestAnimationFrame(() => {
+
+                    item.style.opacity = "1";
+                    item.style.transform =
+                        "translateX(0)";
+
+                });
+
+            }else{
+
+                item.classList.add("hidden");
+
+            }
+
+        });
+
+    });
+
+});
+
+
+/* =========================================================
+   DRINK LAB
+========================================================= */
+
+const drinkButtons =
+    document.querySelectorAll(".lab-button");
+
+const cup =
+    document.querySelector(".cup");
+
+const coffee =
+    document.querySelector(".coffee");
+
+const drinkName =
+    document.querySelector("#drinkName");
+
+
+const drinkStyles = {
+
+    classic:{
+        name:"Classic",
+        cup:"#f5f0e8",
+        coffee:"#3c2115"
+    },
+
+    latte:{
+        name:"Latte",
+        cup:"#e4c5a1",
+        coffee:"#a87850"
+    },
+
+    berry:{
+        name:"Berry",
+        cup:"#d56b5c",
+        coffee:"#54262a"
+    }
+
+};
+
+
+drinkButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        drinkButtons.forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+        button.classList.add("active");
+
+        const drink =
+            drinkStyles[
+                button.dataset.drink
+            ];
+
+        cup.style.background =
+            drink.cup;
+
+        coffee.style.background =
+            drink.coffee;
+
+        drinkName.textContent =
+            drink.name;
+
+        cup.animate(
+
+            [
+                {
+                    transform:
+                        "rotate(-3deg) scale(.96)"
+                },
+                {
+                    transform:
+                        "rotate(3deg) scale(1.04)"
+                },
+                {
+                    transform:
+                        "rotate(0) scale(1)"
+                }
+            ],
+
+            {
+                duration:450,
+                easing:"cubic-bezier(.2,.8,.2,1)"
+            }
+
+        );
+
+    });
+
+});
+
+
+/* =========================================================
+   HORIZONTAL PHOTO TRACK
+   Lightweight RAF + pointer drag
+========================================================= */
+
+const track =
+    document.querySelector("#photoTrack");
+
+let currentX = 0;
+let targetX = 0;
+let dragging = false;
+let startX = 0;
+let startPosition = 0;
+
+function animateTrack(){
+
+    currentX +=
+        (targetX - currentX) * .08;
+
+    track.style.transform =
+        `translate3d(${currentX}px,0,0)`;
+
+    requestAnimationFrame(
+        animateTrack
+    );
+
+}
+
+animateTrack();
+
+
+/* mouse drag */
+
+track.addEventListener(
+    "pointerdown",
+    event => {
+
+        dragging = true;
+
+        startX = event.clientX;
+
+        startPosition = targetX;
+
+        track.setPointerCapture(
+            event.pointerId
+        );
+
+    }
+);
+
+
+track.addEventListener(
+    "pointermove",
+    event => {
+
+        if(!dragging) return;
+
+        const distance =
+            event.clientX - startX;
+
+        targetX =
+            startPosition + distance;
+
+        const max =
+            -(track.scrollWidth -
+                window.innerWidth);
+
+        targetX =
+            Math.min(
+                0,
+                Math.max(max,targetX)
+            );
+
+    }
+);
+
+
+track.addEventListener(
+    "pointerup",
+    () => {
+
+        dragging = false;
+
+    }
+);
+
+
+track.addEventListener(
+    "pointercancel",
+    () => {
+
+        dragging = false;
+
+    }
+);
+
+
+/* =========================================================
+   ORDER DRAWER
+========================================================= */
+
+const drawer =
+    document.querySelector(".order-drawer");
+
+const overlay =
+    document.querySelector(".drawer-overlay");
+
+const openButtons =
+    document.querySelectorAll(".open-order");
+
+const closeDrawer =
+    document.querySelector(".close-drawer");
+
+
+function openOrder(){
+
+    drawer.classList.add("open");
+    overlay.classList.add("open");
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+function closeOrder(){
+
+    drawer.classList.remove("open");
+    overlay.classList.remove("open");
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+}
+
+
+openButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        openOrder
+    );
+
+});
+
+
+closeDrawer.addEventListener(
+    "click",
+    closeOrder
+);
+
+
+overlay.addEventListener(
+    "click",
+    closeOrder
+);
+
+
+/* =========================================================
+   CHECKOUT DEMO
+========================================================= */
+
+document
+    .querySelector("#checkout")
+    .addEventListener("click", function(){
+
+        this.textContent =
+            "Order request received ✓";
+
+        setTimeout(() => {
+
+            this.textContent =
+                "Continue order";
+
+            closeOrder();
+
+        },1500);
+
+    });
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+const mobileToggle =
+    document.querySelector(".mobile-toggle");
+
+let mobileOpen = false;
+
+mobileToggle.addEventListener(
+    "click",
+    () => {
+
+        mobileOpen = !mobileOpen;
+
+        if(mobileOpen){
+
+            document.body.classList.add(
+                "no-scroll"
+            );
+
+            mobileToggle.innerHTML =
+                "<span></span><span></span>";
+
+            /*
+                Simple mobile navigation overlay
+                generated dynamically.
+            */
+
+            const menu =
+                document.createElement("div");
+
+            menu.id = "mobileNav";
+
+            menu.style.cssText = `
+                position:fixed;
+                inset:0;
+                background:#f5ead7;
+                z-index:99;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+            `;
+
+            menu.innerHTML = `
+
+                <nav style="
+                    display:grid;
+                    gap:25px;
+                    text-align:center;
+                ">
+
+                    <a href="#story"
+                       style="
+                       font-family:Fraunces,serif;
+                       font-size:3rem;
+                       ">
+                       Story
+                    </a>
+
+                    <a href="#menu"
+                       style="
+                       font-family:Fraunces,serif;
+                       font-size:3rem;
+                       ">
+                       Menu
+                    </a>
+
+                    <a href="#space"
+                       style="
+                       font-family:Fraunces,serif;
+                       font-size:3rem;
+                       ">
+                       Space
+                    </a>
+
+                    <a href="#visit"
+                       style="
+                       font-family:Fraunces,serif;
+                       font-size:3rem;
+                       ">
+                       Visit
+                    </a>
+
+                </nav>
+
+            `;
+
+            document.body.appendChild(menu);
+
+            menu.querySelectorAll("a")
+                .forEach(link => {
+
+                    link.addEventListener(
+                        "click",
+                        () => {
+
+                            menu.remove();
+
+                            mobileOpen = false;
+
+                            document.body.classList.remove(
+                                "no-scroll"
+                            );
+
+                        }
+                    );
+
+                });
+
+        }else{
+
+            const menu =
+                document.querySelector(
+                    "#mobileNav"
+                );
+
+            if(menu) menu.remove();
+
+            document.body.classList.remove(
+                "no-scroll"
+            );
+
+        }
+
+    });
+
+
+/* =========================================================
+   KEYBOARD ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            closeOrder();
+
+            const menu =
+                document.querySelector(
+                    "#mobileNav"
+                );
+
+            if(menu){
+
+                menu.remove();
+
+                document.body.classList.remove(
+                    "no-scroll"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

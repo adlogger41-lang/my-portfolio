@@ -1,0 +1,4177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOIRÉ — Beauty & Grooming Studio</title>
+
+<meta name="description"
+      content="NOIRÉ is a premium unisex beauty and grooming studio.">
+
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+      rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+  --ink:#171514;
+  --espresso:#241d19;
+  --brown:#4a362b;
+  --cream:#f4efe7;
+  --paper:#fbf8f3;
+  --sand:#d8c8b5;
+  --bronze:#a88968;
+  --muted:#786f68;
+  --line:rgba(23,21,20,.14);
+
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"DM Sans",Arial,sans-serif;
+
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  overflow-x:hidden;
+}
+
+body.locked{
+  overflow:hidden;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:grid;
+  place-items:center;
+
+  background:var(--ink);
+  color:var(--cream);
+
+  transition:
+    opacity .55s ease,
+    visibility .55s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  font-family:var(--serif);
+  font-size:clamp(3rem,9vw,6rem);
+  letter-spacing:.08em;
+}
+
+.loader-line{
+  width:120px;
+  height:1px;
+  background:rgba(255,255,255,.18);
+  margin:18px auto;
+  overflow:hidden;
+}
+
+.loader-line span{
+  display:block;
+  width:45%;
+  height:100%;
+  background:var(--sand);
+  animation:loaderMove 1s ease-in-out infinite;
+}
+
+@keyframes loaderMove{
+  0%{
+    transform:translateX(-120px);
+  }
+  100%{
+    transform:translateX(120px);
+  }
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10000;
+
+  width:0;
+  height:3px;
+
+  background:var(--bronze);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:500;
+
+  width:100%;
+  padding:22px 4vw;
+
+  color:white;
+
+  transition:
+    background .35s ease,
+    color .35s ease,
+    padding .35s ease,
+    box-shadow .35s ease;
+}
+
+.header.scrolled{
+  padding-top:15px;
+  padding-bottom:15px;
+
+  background:rgba(251,248,243,.96);
+  color:var(--ink);
+
+  box-shadow:0 1px 0 rgba(0,0,0,.06);
+}
+
+.nav{
+  max-width:1450px;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-family:var(--serif);
+  font-size:1.5rem;
+  letter-spacing:.12em;
+}
+
+.nav-links{
+  display:flex;
+  gap:32px;
+}
+
+.nav-links a{
+  position:relative;
+
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+.nav-links a::after{
+  content:"";
+
+  position:absolute;
+  left:0;
+  bottom:-7px;
+
+  width:0;
+  height:1px;
+
+  background:currentColor;
+
+  transition:width .3s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.book-btn{
+  border:1px solid currentColor;
+  background:transparent;
+  color:inherit;
+
+  padding:11px 18px;
+  border-radius:999px;
+
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+.book-btn:hover{
+  background:currentColor;
+  color:var(--paper);
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  position:relative;
+
+  min-height:100svh;
+
+  display:flex;
+  align-items:flex-end;
+
+  color:white;
+
+  overflow:hidden;
+}
+
+.hero-image{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  transform:scale(1.035);
+
+  animation:
+    heroZoom 5s var(--ease) forwards;
+
+  will-change:transform;
+}
+
+@keyframes heroZoom{
+  to{
+    transform:scale(1);
+  }
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,8,7,.74),
+      rgba(10,8,7,.12) 70%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(10,8,7,.78),
+      transparent 65%
+    );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  max-width:1450px;
+
+  margin:auto;
+
+  padding:
+    0 4vw
+    clamp(80px,9vh,120px);
+}
+
+.hero-eyebrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  margin-bottom:24px;
+
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+
+  opacity:0;
+  transform:translateY(20px);
+
+  animation:
+    heroEnter .8s .25s var(--ease) forwards;
+}
+
+.hero-eyebrow span{
+  width:42px;
+  height:1px;
+  background:white;
+}
+
+.hero h1{
+  max-width:900px;
+
+  font-family:var(--serif);
+  font-weight:500;
+
+  font-size:
+    clamp(4.5rem,10vw,9.5rem);
+
+  line-height:.82;
+  letter-spacing:-.055em;
+
+  opacity:0;
+  transform:translateY(35px);
+
+  animation:
+    heroEnter .9s .35s var(--ease) forwards;
+}
+
+.hero h1 em{
+  font-weight:500;
+}
+
+.hero-bottom{
+  margin-top:38px;
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:30px;
+
+  opacity:0;
+  transform:translateY(25px);
+
+  animation:
+    heroEnter .8s .55s var(--ease) forwards;
+}
+
+.hero-description{
+  max-width:400px;
+
+  color:rgba(255,255,255,.8);
+
+  line-height:1.7;
+  font-size:.95rem;
+}
+
+.hero-scroll{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:9px;
+
+  font-size:.6rem;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+}
+
+.scroll-line{
+  width:1px;
+  height:48px;
+
+  background:rgba(255,255,255,.35);
+
+  overflow:hidden;
+}
+
+.scroll-line::after{
+  content:"";
+
+  display:block;
+
+  width:100%;
+  height:50%;
+
+  background:white;
+
+  animation:
+    scrollMove 1.8s infinite;
+}
+
+@keyframes scrollMove{
+  0%{
+    transform:translateY(-100%);
+  }
+
+  60%{
+    transform:translateY(200%);
+  }
+
+  100%{
+    transform:translateY(200%);
+  }
+}
+
+@keyframes heroEnter{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/* =========================================================
+   BOOKING BAR
+========================================================= */
+
+.booking-bar{
+  position:relative;
+  z-index:20;
+
+  max-width:1120px;
+
+  margin:-42px auto 0;
+
+  padding:9px;
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr auto;
+
+  background:var(--paper);
+
+  border-radius:18px;
+
+  box-shadow:
+    0 18px 50px rgba(30,20,15,.14);
+}
+
+.booking-field{
+  padding:15px 20px;
+
+  border-right:1px solid var(--line);
+}
+
+.booking-field label{
+  display:block;
+
+  margin-bottom:6px;
+
+  color:var(--muted);
+
+  font-size:.6rem;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+.booking-field select{
+  width:100%;
+
+  border:0;
+  outline:0;
+
+  background:transparent;
+
+  color:var(--ink);
+
+  font-size:.85rem;
+}
+
+.booking-submit{
+  min-width:145px;
+
+  border:0;
+  border-radius:13px;
+
+  background:var(--ink);
+  color:white;
+
+  padding:0 22px;
+
+  transition:
+    transform .25s ease,
+    background .25s ease;
+}
+
+.booking-submit:hover{
+  background:var(--brown);
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+.section{
+  padding:120px 5vw;
+}
+
+.section-inner{
+  max-width:1350px;
+  margin:auto;
+}
+
+.eyebrow{
+  color:var(--muted);
+
+  font-size:.63rem;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro{
+  display:grid;
+  grid-template-columns:1fr 1.5fr;
+
+  gap:9vw;
+}
+
+.intro-title{
+  font-family:var(--serif);
+
+  font-size:
+    clamp(2.8rem,5.2vw,5.8rem);
+
+  line-height:.98;
+  letter-spacing:-.045em;
+
+  font-weight:500;
+}
+
+.intro-title em{
+  color:var(--bronze);
+}
+
+.intro-copy{
+  max-width:620px;
+
+  margin-top:28px;
+
+  color:var(--muted);
+
+  line-height:1.8;
+}
+
+.intro-stat{
+  display:flex;
+  gap:45px;
+
+  margin-top:50px;
+}
+
+.stat strong{
+  display:block;
+
+  font-family:var(--serif);
+  font-size:2.5rem;
+  font-weight:500;
+}
+
+.stat span{
+  font-size:.62rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+  overflow:hidden;
+
+  padding:19px 0;
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+
+  background:var(--cream);
+}
+
+.marquee-track{
+  display:flex;
+
+  width:max-content;
+
+  animation:
+    marquee 28s linear infinite;
+
+  will-change:transform;
+}
+
+.marquee-item{
+  display:flex;
+  align-items:center;
+
+  gap:28px;
+
+  padding-right:28px;
+
+  white-space:nowrap;
+
+  font-family:var(--serif);
+  font-size:1.35rem;
+}
+
+.marquee-dot{
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:var(--bronze);
+}
+
+@keyframes marquee{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.services-section{
+  background:var(--ink);
+  color:var(--cream);
+}
+
+.services-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:40px;
+
+  margin-bottom:60px;
+}
+
+.services-head h2{
+  margin-top:15px;
+
+  font-family:var(--serif);
+  font-weight:500;
+
+  font-size:
+    clamp(3.2rem,6vw,6.5rem);
+
+  line-height:.85;
+  letter-spacing:-.05em;
+}
+
+.services-head p{
+  max-width:320px;
+
+  color:#aaa19a;
+
+  line-height:1.7;
+}
+
+.service-list{
+  border-top:1px solid rgba(255,255,255,.14);
+}
+
+.service{
+  position:relative;
+
+  display:grid;
+  grid-template-columns:60px 1fr auto;
+
+  align-items:center;
+
+  gap:20px;
+
+  padding:30px 0;
+
+  border-bottom:1px solid rgba(255,255,255,.14);
+
+  cursor:pointer;
+
+  overflow:hidden;
+}
+
+.service-number{
+  color:#77706a;
+  font-size:.67rem;
+}
+
+.service-name{
+  font-family:var(--serif);
+
+  font-size:
+    clamp(1.6rem,3vw,3.1rem);
+
+  font-weight:500;
+
+  transition:
+    transform .45s var(--ease);
+}
+
+.service-info{
+  margin-top:5px;
+
+  color:#918982;
+
+  font-size:.7rem;
+}
+
+.service-price{
+  min-width:80px;
+
+  text-align:right;
+
+  font-size:.78rem;
+}
+
+.service-image{
+  position:absolute;
+
+  right:16%;
+  top:50%;
+
+  width:190px;
+  height:235px;
+
+  overflow:hidden;
+
+  border-radius:14px;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transform:
+    translateY(-50%)
+    translateX(25px)
+    rotate(4deg)
+    scale(.92);
+
+  transition:
+    opacity .4s var(--ease),
+    transform .5s var(--ease);
+
+  z-index:5;
+
+  will-change:transform,opacity;
+}
+
+.service-image img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.service:hover .service-image{
+  opacity:1;
+
+  transform:
+    translateY(-50%)
+    translateX(0)
+    rotate(0)
+    scale(1);
+}
+
+.service:hover .service-name{
+  transform:translateX(10px);
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience{
+  background:var(--cream);
+}
+
+.experience-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+
+  gap:7vw;
+
+  align-items:center;
+}
+
+.experience-image{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:22px;
+}
+
+.experience-image img{
+  width:100%;
+  aspect-ratio:4/5;
+
+  object-fit:cover;
+
+  transition:
+    transform .9s var(--ease);
+
+  will-change:transform;
+}
+
+.experience-image:hover img{
+  transform:scale(1.045);
+}
+
+.image-label{
+  position:absolute;
+
+  left:18px;
+  bottom:18px;
+
+  padding:9px 13px;
+
+  border-radius:999px;
+
+  background:rgba(20,17,15,.8);
+
+  color:white;
+
+  font-size:.6rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+.experience-copy h2{
+  margin-top:17px;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(3rem,5.5vw,6rem);
+
+  font-weight:500;
+
+  line-height:.9;
+  letter-spacing:-.05em;
+}
+
+.experience-copy h2 em{
+  color:var(--bronze);
+}
+
+.experience-copy p{
+  max-width:500px;
+
+  margin:28px 0;
+
+  color:var(--muted);
+
+  line-height:1.8;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+
+  gap:10px;
+
+  padding:12px 16px;
+
+  border:1px solid var(--line);
+  border-radius:999px;
+
+  font-size:.63rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.pill span{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--bronze);
+}
+
+
+/* =========================================================
+   LOOKBOOK
+========================================================= */
+
+.lookbook{
+  background:var(--paper);
+}
+
+.lookbook-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  gap:30px;
+
+  margin-bottom:55px;
+}
+
+.lookbook-head h2{
+  margin-top:15px;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(3rem,6vw,6rem);
+
+  line-height:.88;
+
+  font-weight:500;
+
+  letter-spacing:-.05em;
+}
+
+.lookbook-head p{
+  max-width:320px;
+
+  color:var(--muted);
+
+  line-height:1.7;
+}
+
+.lookbook-grid{
+  display:grid;
+
+  grid-template-columns:1fr .72fr 1fr;
+
+  grid-auto-rows:280px;
+
+  gap:14px;
+}
+
+.look{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:17px;
+
+  cursor:pointer;
+}
+
+.look:nth-child(2){
+  grid-row:span 2;
+}
+
+.look:nth-child(4){
+  grid-column:span 2;
+}
+
+.look img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  transition:
+    transform .8s var(--ease);
+
+  will-change:transform;
+}
+
+.look:hover img{
+  transform:scale(1.06);
+}
+
+.look-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      transparent 40%,
+      rgba(0,0,0,.7)
+    );
+}
+
+.look-text{
+  position:absolute;
+
+  left:18px;
+  bottom:18px;
+
+  color:white;
+}
+
+.look-text strong{
+  display:block;
+
+  font-family:var(--serif);
+  font-size:1.35rem;
+  font-weight:500;
+}
+
+.look-text span{
+  font-size:.58rem;
+
+  text-transform:uppercase;
+  letter-spacing:.13em;
+
+  opacity:.75;
+}
+
+
+/* =========================================================
+   STYLE SELECTOR
+========================================================= */
+
+.selector{
+  background:var(--espresso);
+  color:var(--cream);
+}
+
+.selector-wrap{
+  max-width:1150px;
+  margin:auto;
+}
+
+.selector-head{
+  text-align:center;
+}
+
+.selector-head h2{
+  margin-top:16px;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(3rem,6vw,6rem);
+
+  line-height:.9;
+
+  font-weight:500;
+
+  letter-spacing:-.05em;
+}
+
+.selector-head h2 em{
+  color:var(--bronze);
+}
+
+.selector-head p{
+  max-width:540px;
+
+  margin:25px auto 35px;
+
+  color:#a69d96;
+
+  line-height:1.7;
+}
+
+.switch{
+  display:flex;
+  justify-content:center;
+
+  margin-bottom:50px;
+}
+
+.switch button{
+  border:1px solid rgba(255,255,255,.17);
+
+  background:transparent;
+
+  color:#aaa19a;
+
+  padding:12px 24px;
+
+  font-size:.63rem;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+.switch button:first-child{
+  border-radius:999px 0 0 999px;
+}
+
+.switch button:last-child{
+  border-radius:0 999px 999px 0;
+}
+
+.switch button.active{
+  background:var(--cream);
+  color:var(--ink);
+}
+
+.person-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  overflow:hidden;
+
+  border-radius:23px;
+
+  background:#302720;
+}
+
+.person-photo{
+  min-height:480px;
+
+  overflow:hidden;
+}
+
+.person-photo img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  transition:
+    opacity .3s ease,
+    transform .7s var(--ease);
+}
+
+.person-info{
+  padding:55px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.person-info h3{
+  margin-top:15px;
+
+  font-family:var(--serif);
+
+  font-size:3.2rem;
+
+  font-weight:500;
+}
+
+.person-info p{
+  margin:18px 0 30px;
+
+  color:#aaa19a;
+
+  line-height:1.8;
+}
+
+.feature-list{
+  list-style:none;
+}
+
+.feature-list li{
+  display:flex;
+  justify-content:space-between;
+
+  padding:13px 0;
+
+  border-bottom:1px solid rgba(255,255,255,.1);
+
+  font-size:.75rem;
+}
+
+.feature-list span{
+  color:#b9a994;
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+.team{
+  background:var(--paper);
+}
+
+.team-head{
+  margin-bottom:55px;
+}
+
+.team-head h2{
+  margin-top:15px;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(3rem,6vw,6rem);
+
+  line-height:.9;
+
+  font-weight:500;
+
+  letter-spacing:-.05em;
+}
+
+.team-head h2 em{
+  color:var(--bronze);
+}
+
+.team-grid{
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:16px;
+}
+
+.team-card{
+  overflow:hidden;
+
+  border-radius:18px;
+
+  background:var(--cream);
+}
+
+.team-card img{
+  width:100%;
+  aspect-ratio:4/5;
+
+  object-fit:cover;
+
+  transition:
+    transform .8s var(--ease);
+
+  will-change:transform;
+}
+
+.team-card:hover img{
+  transform:scale(1.045);
+}
+
+.team-meta{
+  padding:18px;
+}
+
+.team-meta strong{
+  display:block;
+
+  font-family:var(--serif);
+
+  font-size:1.4rem;
+
+  font-weight:500;
+}
+
+.team-meta span{
+  display:block;
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:.6rem;
+
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+
+/* =========================================================
+   TESTIMONIAL
+========================================================= */
+
+.testimonial{
+  background:var(--cream);
+
+  text-align:center;
+}
+
+.quote-mark{
+  font-family:var(--serif);
+
+  font-size:5rem;
+
+  color:var(--bronze);
+
+  line-height:.4;
+}
+
+.quote{
+  max-width:900px;
+
+  margin:30px auto;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(2rem,4vw,4.3rem);
+
+  line-height:1.05;
+
+  font-weight:500;
+
+  letter-spacing:-.04em;
+}
+
+.quote-author{
+  color:var(--muted);
+
+  font-size:.62rem;
+
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta{
+  position:relative;
+
+  min-height:78vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  color:white;
+
+  text-align:center;
+}
+
+.final-cta-bg{
+  position:absolute;
+  inset:0;
+}
+
+.final-cta-bg img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  filter:brightness(.42);
+
+  transform:scale(1.03);
+
+  transition:
+    transform 1s var(--ease);
+
+  will-change:transform;
+}
+
+.final-cta:hover .final-cta-bg img{
+  transform:scale(1);
+}
+
+.final-content{
+  position:relative;
+  z-index:2;
+
+  padding:30px;
+}
+
+.final-content h2{
+  max-width:900px;
+
+  margin:22px auto 32px;
+
+  font-family:var(--serif);
+
+  font-size:
+    clamp(4rem,9vw,8.5rem);
+
+  line-height:.83;
+
+  font-weight:500;
+
+  letter-spacing:-.06em;
+}
+
+.cta-button{
+  border:1px solid rgba(255,255,255,.4);
+
+  padding:16px 27px;
+
+  border-radius:999px;
+
+  background:white;
+  color:var(--ink);
+
+  font-size:.65rem;
+
+  text-transform:uppercase;
+  letter-spacing:.13em;
+
+  transition:
+    transform .3s var(--ease),
+    background .3s ease,
+    color .3s ease;
+}
+
+.cta-button:hover{
+  transform:translateY(-3px);
+
+  background:transparent;
+  color:white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  padding:70px 5vw 30px;
+
+  background:var(--ink);
+
+  color:var(--cream);
+}
+
+.footer-grid{
+  max-width:1350px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:2fr 1fr 1fr 1fr;
+
+  gap:40px;
+}
+
+.footer-logo{
+  font-family:var(--serif);
+
+  font-size:2.8rem;
+
+  letter-spacing:.08em;
+}
+
+.footer-brand p{
+  max-width:300px;
+
+  margin-top:18px;
+
+  color:#918983;
+
+  line-height:1.7;
+
+  font-size:.8rem;
+}
+
+.footer-col h4{
+  margin-bottom:16px;
+
+  color:#918983;
+
+  font-size:.6rem;
+
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+.footer-col a,
+.footer-col p{
+  display:block;
+
+  margin:9px 0;
+
+  color:#d3cbc4;
+
+  font-size:.76rem;
+}
+
+.footer-col a:hover{
+  color:white;
+}
+
+.footer-bottom{
+  max-width:1350px;
+
+  margin:60px auto 0;
+
+  padding-top:20px;
+
+  border-top:1px solid rgba(255,255,255,.1);
+
+  display:flex;
+  justify-content:space-between;
+
+  color:#77716d;
+
+  font-size:.6rem;
+
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+
+/* =========================================================
+   REVEALS
+========================================================= */
+
+.reveal,
+.reveal-left,
+.reveal-scale{
+  opacity:0;
+
+  transition:
+    opacity .75s var(--ease),
+    transform .75s var(--ease);
+}
+
+.reveal{
+  transform:translateY(28px);
+}
+
+.reveal-left{
+  transform:translateX(-30px);
+}
+
+.reveal-scale{
+  transform:scale(.96);
+}
+
+.reveal.active,
+.reveal-left.active,
+.reveal-scale.active{
+  opacity:1;
+  transform:none;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  z-index:9000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(15,12,10,.72);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:
+    opacity .3s ease,
+    visibility .3s ease;
+}
+
+.modal.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.modal-card{
+  width:min(600px,100%);
+
+  max-height:90vh;
+
+  overflow:auto;
+
+  padding:32px;
+
+  border-radius:23px;
+
+  background:var(--paper);
+
+  transform:
+    translateY(20px)
+    scale(.98);
+
+  transition:
+    transform .4s var(--ease);
+}
+
+.modal.open .modal-card{
+  transform:none;
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:28px;
+}
+
+.modal-top h3{
+  font-family:var(--serif);
+
+  font-size:2.5rem;
+
+  font-weight:500;
+}
+
+.close{
+  width:40px;
+  height:40px;
+
+  border:0;
+  border-radius:50%;
+
+  background:var(--cream);
+
+  font-size:1.3rem;
+}
+
+.form-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:14px;
+}
+
+.form-field{
+  margin-bottom:12px;
+}
+
+.form-field.full{
+  grid-column:1/-1;
+}
+
+.form-field label{
+  display:block;
+
+  margin-bottom:6px;
+
+  color:var(--muted);
+
+  font-size:.6rem;
+
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+.form-field input,
+.form-field select{
+  width:100%;
+
+  padding:13px;
+
+  border:1px solid var(--line);
+
+  border-radius:10px;
+
+  outline:0;
+
+  background:white;
+
+  color:var(--ink);
+}
+
+.form-field input:focus,
+.form-field select:focus{
+  border-color:var(--bronze);
+}
+
+.form-submit{
+  width:100%;
+
+  margin-top:8px;
+
+  padding:15px;
+
+  border:0;
+  border-radius:11px;
+
+  background:var(--ink);
+
+  color:white;
+
+  font-size:.65rem;
+
+  text-transform:uppercase;
+  letter-spacing:.13em;
+
+  transition:
+    transform .25s ease,
+    background .25s ease;
+}
+
+.form-submit:hover{
+  transform:translateY(-2px);
+
+  background:var(--brown);
+}
+
+
+/* =========================================================
+   MOBILE BOOK BUTTON
+========================================================= */
+
+.mobile-book{
+  display:none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero-content{
+    padding-bottom:120px;
+  }
+
+  .booking-bar{
+    margin:
+      -28px 5vw 0;
+
+    grid-template-columns:1fr 1fr;
+  }
+
+  .booking-field:nth-child(2){
+    border-right:0;
+  }
+
+  .booking-field:nth-child(3){
+    border-top:1px solid var(--line);
+  }
+
+  .booking-submit{
+    min-height:55px;
+    margin:5px;
+  }
+
+  .intro{
+    grid-template-columns:1fr;
+
+    gap:30px;
+  }
+
+  .services-head{
+    display:block;
+  }
+
+  .services-head p{
+    margin-top:25px;
+  }
+
+  .service{
+    grid-template-columns:45px 1fr auto;
+  }
+
+  .service-info{
+    display:none;
+  }
+
+  .service-image{
+    display:none;
+  }
+
+  .experience-grid{
+    grid-template-columns:1fr;
+  }
+
+  .lookbook-grid{
+    grid-template-columns:1fr 1fr;
+
+    grid-auto-rows:260px;
+  }
+
+  .look:nth-child(2){
+    grid-row:span 1;
+  }
+
+  .look:nth-child(4){
+    grid-column:span 2;
+  }
+
+  .person-card{
+    grid-template-columns:1fr;
+  }
+
+  .person-photo{
+    min-height:420px;
+  }
+
+  .team-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media(max-width:600px){
+
+  html{
+    scroll-behavior:auto;
+  }
+
+  .header{
+    padding:17px 5vw;
+  }
+
+  .header.scrolled{
+    padding-top:13px;
+    padding-bottom:13px;
+  }
+
+  .logo{
+    font-size:1.25rem;
+  }
+
+  .header .book-btn{
+    padding:9px 13px;
+  }
+
+  .hero{
+    min-height:90svh;
+  }
+
+  .hero-content{
+    padding:
+      0 5vw
+      100px;
+  }
+
+  .hero h1{
+    font-size:
+      clamp(4rem,20vw,6rem);
+  }
+
+  .hero-bottom{
+    display:block;
+
+    margin-top:30px;
+  }
+
+  .hero-scroll{
+    display:none;
+  }
+
+  .booking-bar{
+    grid-template-columns:1fr;
+
+    margin:
+      -22px 4vw 0;
+
+    padding:7px;
+  }
+
+  .booking-field{
+    border-right:0;
+
+    border-bottom:1px solid var(--line);
+  }
+
+  .booking-field:nth-child(3){
+    border-top:0;
+  }
+
+  .booking-submit{
+    min-height:52px;
+  }
+
+  .section{
+    padding:88px 5vw;
+  }
+
+  .intro-stat{
+    gap:25px;
+  }
+
+  .stat strong{
+    font-size:2rem;
+  }
+
+  .stat span{
+    font-size:.55rem;
+  }
+
+  .service{
+    grid-template-columns:32px 1fr auto;
+
+    gap:8px;
+
+    padding:24px 0;
+  }
+
+  .service-name{
+    font-size:1.5rem;
+  }
+
+  .service-price{
+    min-width:60px;
+
+    font-size:.68rem;
+  }
+
+  .lookbook-grid{
+    grid-template-columns:1fr;
+
+    grid-auto-rows:330px;
+  }
+
+  .look:nth-child(4){
+    grid-column:auto;
+  }
+
+  .team-grid{
+    grid-template-columns:1fr;
+  }
+
+  .person-info{
+    padding:30px;
+  }
+
+  .person-info h3{
+    font-size:2.6rem;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+
+    gap:30px;
+  }
+
+  .footer-bottom{
+    display:block;
+  }
+
+  .footer-bottom span{
+    display:block;
+
+    margin-bottom:8px;
+  }
+
+  .mobile-book{
+    position:fixed;
+
+    display:block;
+
+    left:14px;
+    right:14px;
+    bottom:13px;
+
+    z-index:700;
+
+    padding:15px;
+
+    border:0;
+    border-radius:999px;
+
+    background:var(--ink);
+    color:white;
+
+    box-shadow:
+      0 10px 30px rgba(0,0,0,.2);
+
+    font-size:.65rem;
+
+    text-transform:uppercase;
+    letter-spacing:.14em;
+
+    transform:translateY(130%);
+
+    transition:
+      transform .4s var(--ease);
+  }
+
+  .mobile-book.show{
+    transform:translateY(0);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-field.full{
+    grid-column:auto;
+  }
+
+  .modal-card{
+    padding:25px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  html{
+    scroll-behavior:auto;
+  }
+
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+
+    transition-duration:.01ms !important;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     LOADER
+======================================================= -->
+
+<div class="loader" id="loader">
+
+  <div class="loader-inner">
+
+    <div class="loader-logo">
+      NOIRÉ
+    </div>
+
+    <div class="loader-line">
+      <span></span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="progress" id="progress"></div>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="header" id="header">
+
+  <nav class="nav">
+
+    <a href="#" class="logo">
+      NOIRÉ
+    </a>
+
+    <div class="nav-links">
+
+      <a href="#services">Services</a>
+
+      <a href="#lookbook">Lookbook</a>
+
+      <a href="#team">Artists</a>
+
+      <a href="#contact">Contact</a>
+
+    </div>
+
+    <button class="book-btn open-booking">
+      Book Appointment
+    </button>
+
+  </nav>
+
+</header>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero">
+
+  <img
+    class="hero-image"
+    src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&q=78"
+    srcset="
+      https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=76 700w,
+      https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1000&q=78 1000w,
+      https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&q=78 1400w
+    "
+    sizes="100vw"
+    alt="NOIRÉ beauty editorial"
+    width="1400"
+    height="1000"
+    fetchpriority="high"
+    decoding="async"
+  >
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-eyebrow">
+
+      <span></span>
+
+      Beauty & Grooming Studio
+
+    </div>
+
+    <h1>
+      Your look.<br>
+      <em>Your rules.</em>
+    </h1>
+
+    <div class="hero-bottom">
+
+      <p class="hero-description">
+        A modern unisex studio where precision grooming,
+        beauty and personal style meet.
+      </p>
+
+      <div class="hero-scroll">
+
+        Scroll
+
+        <div class="scroll-line"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     QUICK BOOKING
+======================================================= -->
+
+<div class="booking-bar">
+
+  <div class="booking-field">
+
+    <label>Category</label>
+
+    <select>
+
+      <option>Hair</option>
+      <option>Men's Grooming</option>
+      <option>Beauty</option>
+      <option>Skin</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="booking-field">
+
+    <label>Service</label>
+
+    <select>
+
+      <option>Signature Haircut</option>
+      <option>Skin Fade</option>
+      <option>Hair Color</option>
+      <option>Signature Facial</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="booking-field">
+
+    <label>Preferred Day</label>
+
+    <select>
+
+      <option>Today</option>
+      <option>Tomorrow</option>
+      <option>This Weekend</option>
+
+    </select>
+
+  </div>
+
+
+  <button class="booking-submit open-booking">
+    Check Availability
+  </button>
+
+</div>
+
+
+<!-- =======================================================
+     INTRO
+======================================================= -->
+
+<section class="section">
+
+  <div class="section-inner intro">
+
+    <div class="reveal-left">
+
+      <div class="eyebrow">
+        01 — The Studio
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <div class="intro-title reveal">
+
+        Beauty isn't a category.<br>
+
+        It's <em>personal.</em>
+
+      </div>
+
+
+      <p class="intro-copy reveal">
+
+        NOIRÉ brings hair, grooming, beauty and skin services
+        together under one modern roof. Whether you're after
+        a clean fade, a new color, polished nails or a quiet
+        facial, every appointment is built around you.
+
+      </p>
+
+
+      <div class="intro-stat reveal">
+
+        <div class="stat">
+
+          <strong>12+</strong>
+
+          <span>
+            Beauty disciplines
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>8</strong>
+
+          <span>
+            Expert artists
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <strong>4.9</strong>
+
+          <span>
+            Client rating
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     MARQUEE
+======================================================= -->
+
+<div class="marquee">
+
+  <div class="marquee-track">
+
+    <div class="marquee-item">
+
+      Hair
+
+      <span class="marquee-dot"></span>
+
+      Grooming
+
+      <span class="marquee-dot"></span>
+
+      Beauty
+
+      <span class="marquee-dot"></span>
+
+      Skin
+
+      <span class="marquee-dot"></span>
+
+      Style
+
+      <span class="marquee-dot"></span>
+
+    </div>
+
+
+    <div class="marquee-item">
+
+      Hair
+
+      <span class="marquee-dot"></span>
+
+      Grooming
+
+      <span class="marquee-dot"></span>
+
+      Beauty
+
+      <span class="marquee-dot"></span>
+
+      Skin
+
+      <span class="marquee-dot"></span>
+
+      Style
+
+      <span class="marquee-dot"></span>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     SERVICES
+======================================================= -->
+
+<section
+  class="section services-section"
+  id="services"
+>
+
+  <div class="section-inner">
+
+    <div class="services-head reveal">
+
+      <div>
+
+        <div class="eyebrow">
+          02 — Services
+        </div>
+
+        <h2>
+          Made for<br>
+          <em>everyone.</em>
+        </h2>
+
+      </div>
+
+
+      <p>
+
+        Precision services for every style,
+        from everyday maintenance to complete
+        transformations.
+
+      </p>
+
+    </div>
+
+
+    <div class="service-list">
+
+
+      <!-- FADE -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          01
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Skin Fade
+          </div>
+
+          <div class="service-info">
+            Precision fade, shape-up and styling.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          450 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=500&q=72"
+            alt="Men's skin fade haircut"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- HAIRCUT -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          02
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Signature Haircut
+          </div>
+
+          <div class="service-info">
+            Consultation, cut, wash and finish.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          550 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=72"
+            alt="Professional salon haircut"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- COLOR -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          03
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Color & Gloss
+          </div>
+
+          <div class="service-info">
+            Custom color consultation and finish.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          1,800 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=500&q=72"
+            alt="Professional hair coloring"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- BRAIDS -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          04
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Braids & Styling
+          </div>
+
+          <div class="service-info">
+            Detailed styling designed around your look.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          1,200 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=500&q=72"
+            alt="Hair styling"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- FACIAL -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          05
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Signature Facial
+          </div>
+
+          <div class="service-info">
+            Cleansing, hydration and relaxing facial care.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          900 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=500&q=72"
+            alt="Facial skincare treatment"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- NAILS -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          06
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Nail Studio
+          </div>
+
+          <div class="service-info">
+            Clean manicure and polished finish.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          650 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=72"
+            alt="Professional manicure"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- BEARD -->
+
+      <div class="service reveal">
+
+        <span class="service-number">
+          07
+        </span>
+
+        <div>
+
+          <div class="service-name">
+            Beard Sculpt
+          </div>
+
+          <div class="service-info">
+            Shape, trim and detailed beard finish.
+          </div>
+
+        </div>
+
+        <div class="service-price">
+          350 ETB
+        </div>
+
+        <div class="service-image">
+
+          <img
+            loading="lazy"
+            decoding="async"
+            width="500"
+            height="620"
+            src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=500&q=72"
+            alt="Professional beard grooming"
+          >
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     EXPERIENCE
+======================================================= -->
+
+<section class="section experience">
+
+  <div class="section-inner experience-grid">
+
+
+    <div class="experience-image reveal-scale">
+
+      <img
+        loading="lazy"
+        decoding="async"
+        width="900"
+        height="1125"
+        src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=76"
+        srcset="
+          https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=74 600w,
+          https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=76 900w
+        "
+        sizes="(max-width:900px) 90vw, 50vw"
+        alt="Modern salon interior"
+      >
+
+      <div class="image-label">
+        The NOIRÉ experience
+      </div>
+
+    </div>
+
+
+    <div class="experience-copy">
+
+      <div class="eyebrow reveal">
+        03 — The Experience
+      </div>
+
+      <h2 class="reveal">
+        Come for the<br>
+        <em>look.</em><br>
+        Stay for the feeling.
+      </h2>
+
+      <p class="reveal">
+        Warm interiors, expert artists and an appointment
+        designed around your time. No rushed service.
+        No one-size-fits-all approach.
+      </p>
+
+      <div class="pill reveal">
+        <span></span>
+        By appointment
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     LOOKBOOK
+======================================================= -->
+
+<section
+  class="section lookbook"
+  id="lookbook"
+>
+
+  <div class="section-inner">
+
+
+    <div class="lookbook-head">
+
+      <div class="reveal">
+
+        <div class="eyebrow">
+          04 — Lookbook
+        </div>
+
+        <h2>
+          Recent<br>
+          <em>work.</em>
+        </h2>
+
+      </div>
+
+      <p class="reveal">
+        A selection of cuts, color, beauty and grooming
+        created by the NOIRÉ team.
+      </p>
+
+    </div>
+
+
+    <div class="lookbook-grid">
+
+
+      <div class="look reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="700"
+          src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=74"
+          alt="Woman with styled hair"
+        >
+
+        <div class="look-overlay"></div>
+
+        <div class="look-text">
+
+          <strong>
+            Soft Texture
+          </strong>
+
+          <span>
+            Hair Styling
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="look reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="1000"
+          src="https://images.unsplash.com/photo-1599351431202-1e0f0c6b3a5a?auto=format&fit=crop&w=800&q=74"
+          alt="Modern men's haircut"
+        >
+
+        <div class="look-overlay"></div>
+
+        <div class="look-text">
+
+          <strong>
+            Clean Fade
+          </strong>
+
+          <span>
+            Men's Grooming
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="look reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="700"
+          src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=800&q=74"
+          alt="Beauty styling"
+        >
+
+        <div class="look-overlay"></div>
+
+        <div class="look-text">
+
+          <strong>
+            Editorial Glow
+          </strong>
+
+          <span>
+            Beauty
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="look reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="700"
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1100&q=74"
+          alt="Professional hair styling"
+        >
+
+        <div class="look-overlay"></div>
+
+        <div class="look-text">
+
+          <strong>
+            Signature Finish
+          </strong>
+
+          <span>
+            Hair
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     STYLE SELECTOR
+======================================================= -->
+
+<section class="section selector">
+
+  <div class="selector-wrap">
+
+
+    <div class="selector-head reveal">
+
+      <div class="eyebrow">
+        05 — Find Your Service
+      </div>
+
+      <h2>
+        Different looks.<br>
+        Same <em>standard.</em>
+      </h2>
+
+      <p>
+        Explore a few of the experiences our artists
+        create for different personal styles.
+      </p>
+
+    </div>
+
+
+    <div class="switch reveal">
+
+      <button
+        class="active"
+        data-style="him"
+      >
+        Him
+      </button>
+
+      <button data-style="her">
+        Her
+      </button>
+
+    </div>
+
+
+    <div class="person-card reveal-scale">
+
+
+      <div class="person-photo">
+
+        <img
+          id="styleImage"
+          width="800"
+          height="900"
+          src="https://images.unsplash.com/photo-1599351431202-1e0f0c6b3a5a?auto=format&fit=crop&w=800&q=74"
+          alt="Men's grooming"
+        >
+
+      </div>
+
+
+      <div class="person-info">
+
+        <div class="eyebrow">
+          Featured experience
+        </div>
+
+        <h3 id="styleTitle">
+          Modern Grooming
+        </h3>
+
+        <p id="styleDescription">
+          Precision cuts, fades, beard detailing and
+          styling for a clean, confident finish.
+        </p>
+
+
+        <ul
+          class="feature-list"
+          id="featureList"
+        >
+
+          <li>
+            Skin Fade
+            <span>450 ETB</span>
+          </li>
+
+          <li>
+            Beard Sculpt
+            <span>350 ETB</span>
+          </li>
+
+          <li>
+            Hair + Beard
+            <span>700 ETB</span>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     TEAM
+======================================================= -->
+
+<section
+  class="section team"
+  id="team"
+>
+
+  <div class="section-inner">
+
+
+    <div class="team-head reveal">
+
+      <div class="eyebrow">
+        06 — The Artists
+      </div>
+
+      <h2>
+        People behind<br>
+        the <em>craft.</em>
+      </h2>
+
+    </div>
+
+
+    <div class="team-grid">
+
+
+      <div class="team-card reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="700"
+          height="875"
+          src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=700&q=72"
+          alt="Hair stylist"
+        >
+
+        <div class="team-meta">
+
+          <strong>
+            Alex
+          </strong>
+
+          <span>
+            Hair & Color
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="team-card reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="700"
+          height="875"
+          src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=72"
+          alt="Beauty stylist"
+        >
+
+        <div class="team-meta">
+
+          <strong>
+            Maya
+          </strong>
+
+          <span>
+            Beauty & Skin
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="team-card reveal-scale">
+
+        <img
+          loading="lazy"
+          decoding="async"
+          width="700"
+          height="875"
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=72"
+          alt="Men's grooming specialist"
+        >
+
+        <div class="team-meta">
+
+          <strong>
+            Daniel
+          </strong>
+
+          <span>
+            Men's Grooming
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     TESTIMONIAL
+======================================================= -->
+
+<section class="section testimonial">
+
+  <div class="section-inner reveal">
+
+    <div class="quote-mark">
+      “
+    </div>
+
+    <div class="quote">
+      The best part isn't leaving with a new look.
+      It's feeling like yourself again.
+    </div>
+
+    <div class="quote-author">
+      — NOIRÉ client
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL CTA
+======================================================= -->
+
+<section
+  class="final-cta"
+  id="contact"
+>
+
+  <div class="final-cta-bg">
+
+    <img
+      loading="lazy"
+      decoding="async"
+      width="1400"
+      height="900"
+      src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1400&q=74"
+      alt="Beauty editorial"
+    >
+
+  </div>
+
+
+  <div class="final-content reveal">
+
+    <div class="eyebrow">
+      Ready when you are
+    </div>
+
+    <h2>
+      Let's create<br>
+      your next look.
+    </h2>
+
+    <button class="cta-button open-booking">
+      Book an appointment
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+
+    <div class="footer-brand">
+
+      <div class="footer-logo">
+        NOIRÉ
+      </div>
+
+      <p>
+        Beauty, grooming and personal style —
+        brought together in one modern studio.
+      </p>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Explore
+      </h4>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#lookbook">
+        Lookbook
+      </a>
+
+      <a href="#team">
+        Artists
+      </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Visit
+      </h4>
+
+      <p>
+        Bahir Dar
+      </p>
+
+      <p>
+        Ethiopia
+      </p>
+
+      <p>
+        Mon — Sat
+      </p>
+
+      <p>
+        09:00 — 20:00
+      </p>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Contact
+      </h4>
+
+      <a href="tel:+251900000000">
+        +251 90 000 0000
+      </a>
+
+      <a href="mailto:hello@noire.example">
+        hello@noire.example
+      </a>
+
+      <a href="#">
+        Instagram
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NOIRÉ Studio
+    </span>
+
+    <span>
+      Beauty · Grooming · Style
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =======================================================
+     MOBILE BOOKING
+======================================================= -->
+
+<button
+  class="mobile-book"
+  id="mobileBook"
+>
+  Book Appointment
+</button>
+
+
+<!-- =======================================================
+     BOOKING MODAL
+======================================================= -->
+
+<div
+  class="modal"
+  id="bookingModal"
+>
+
+  <div class="modal-card">
+
+
+    <div class="modal-top">
+
+      <h3>
+        Book your visit.
+      </h3>
+
+      <button
+        class="close"
+        id="closeModal"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="bookingForm">
+
+
+      <div class="form-grid">
+
+
+        <div class="form-field">
+
+          <label>
+            Your name
+          </label>
+
+          <input
+            required
+            type="text"
+            placeholder="Your name"
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            Phone
+          </label>
+
+          <input
+            required
+            type="tel"
+            placeholder="+251..."
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            Category
+          </label>
+
+          <select>
+
+            <option>
+              Hair
+            </option>
+
+            <option>
+              Men's Grooming
+            </option>
+
+            <option>
+              Beauty
+            </option>
+
+            <option>
+              Skin
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            Service
+          </label>
+
+          <select>
+
+            <option>
+              Signature Haircut — 550 ETB
+            </option>
+
+            <option>
+              Skin Fade — 450 ETB
+            </option>
+
+            <option>
+              Beard Sculpt — 350 ETB
+            </option>
+
+            <option>
+              Color & Gloss — 1,800 ETB
+            </option>
+
+            <option>
+              Braids & Styling — 1,200 ETB
+            </option>
+
+            <option>
+              Signature Facial — 900 ETB
+            </option>
+
+            <option>
+              Nail Studio — 650 ETB
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            Date
+          </label>
+
+          <input
+            required
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>
+            Time
+          </label>
+
+          <select>
+
+            <option>
+              09:00
+            </option>
+
+            <option>
+              10:30
+            </option>
+
+            <option>
+              12:00
+            </option>
+
+            <option>
+              14:00
+            </option>
+
+            <option>
+              16:00
+            </option>
+
+            <option>
+              18:00
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field full">
+
+          <label>
+            Anything we should know?
+          </label>
+
+          <input
+            type="text"
+            placeholder="Optional"
+          >
+
+        </div>
+
+
+      </div>
+
+
+      <button class="form-submit">
+        Request Appointment
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+window.addEventListener("load", () => {
+
+  /*
+    Do not keep the loader around longer than necessary.
+  */
+
+  requestAnimationFrame(() => {
+
+    setTimeout(() => {
+
+      document
+        .getElementById("loader")
+        .classList
+        .add("hide");
+
+    }, 350);
+
+  });
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header =
+  document.getElementById("header");
+
+let ticking = false;
+
+function updateHeader(){
+
+  if(window.scrollY > 60){
+
+    header.classList.add("scrolled");
+
+  }else{
+
+    header.classList.remove("scrolled");
+
+  }
+
+}
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if(!ticking){
+
+      requestAnimationFrame(() => {
+
+        updateHeader();
+
+        ticking = false;
+
+      });
+
+      ticking = true;
+
+    }
+
+  },
+  {passive:true}
+);
+
+updateHeader();
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+const progress =
+  document.getElementById("progress");
+
+let progressTicking = false;
+
+function updateProgress(){
+
+  const scrollTop =
+    window.scrollY;
+
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const percentage =
+    max > 0
+      ? (scrollTop / max) * 100
+      : 0;
+
+  progress.style.width =
+    percentage + "%";
+
+}
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if(!progressTicking){
+
+      requestAnimationFrame(() => {
+
+        updateProgress();
+
+        progressTicking = false;
+
+      });
+
+      progressTicking = true;
+
+    }
+
+  },
+  {passive:true}
+);
+
+
+/* =========================================================
+   REVEAL OBSERVER
+========================================================= */
+
+const revealElements =
+  document.querySelectorAll(
+    ".reveal,.reveal-left,.reveal-scale"
+  );
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target
+            .classList
+            .add("active");
+
+          observer.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.1,
+      rootMargin:"0px 0px -35px 0px"
+    }
+  );
+
+revealElements.forEach(element => {
+
+  observer.observe(element);
+
+});
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+const modal =
+  document.getElementById(
+    "bookingModal"
+  );
+
+const openButtons =
+  document.querySelectorAll(
+    ".open-booking"
+  );
+
+const closeModal =
+  document.getElementById(
+    "closeModal"
+  );
+
+
+function openBooking(){
+
+  modal.classList.add("open");
+
+  document.body.classList.add("locked");
+
+}
+
+
+function closeBooking(){
+
+  modal.classList.remove("open");
+
+  document.body.classList.remove("locked");
+
+}
+
+
+openButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    openBooking
+  );
+
+});
+
+
+closeModal.addEventListener(
+  "click",
+  closeBooking
+);
+
+
+modal.addEventListener(
+  "click",
+  event => {
+
+    if(event.target === modal){
+
+      closeBooking();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Escape"){
+
+      closeBooking();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+document
+  .getElementById("bookingForm")
+  .addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+      const button =
+        event.target.querySelector(
+          ".form-submit"
+        );
+
+      button.textContent =
+        "Appointment Requested ✓";
+
+      button.style.background =
+        "#4a362b";
+
+      setTimeout(() => {
+
+        button.textContent =
+          "Request Appointment";
+
+        button.style.background =
+          "";
+
+        closeBooking();
+
+      },1500);
+
+    }
+  );
+
+
+/* =========================================================
+   STYLE SWITCHER
+========================================================= */
+
+const styleButtons =
+  document.querySelectorAll(
+    ".switch button"
+  );
+
+const styleImage =
+  document.getElementById(
+    "styleImage"
+  );
+
+const styleTitle =
+  document.getElementById(
+    "styleTitle"
+  );
+
+const styleDescription =
+  document.getElementById(
+    "styleDescription"
+  );
+
+const featureList =
+  document.getElementById(
+    "featureList"
+  );
+
+
+const styles = {
+
+  him:{
+
+    image:
+      "https://images.unsplash.com/photo-1599351431202-1e0f0c6b3a5a?auto=format&fit=crop&w=800&q=74",
+
+    title:
+      "Modern Grooming",
+
+    description:
+      "Precision cuts, fades, beard detailing and styling for a clean, confident finish.",
+
+    features:[
+      ["Skin Fade","450 ETB"],
+      ["Beard Sculpt","350 ETB"],
+      ["Hair + Beard","700 ETB"]
+    ]
+
+  },
+
+  her:{
+
+    image:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=74",
+
+    title:
+      "Signature Beauty",
+
+    description:
+      "Hair styling, color, beauty and skin treatments designed around your individual style.",
+
+    features:[
+      ["Signature Haircut","550 ETB"],
+      ["Color & Gloss","1,800 ETB"],
+      ["Signature Facial","900 ETB"]
+    ]
+
+  }
+
+};
+
+
+/*
+  Prevent multiple image requests from being
+  fired if the user taps quickly.
+*/
+
+let styleChanging = false;
+
+styleButtons.forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      if(styleChanging){
+        return;
+      }
+
+      if(
+        button.classList.contains("active")
+      ){
+        return;
+      }
+
+      styleChanging = true;
+
+      styleButtons.forEach(btn => {
+
+        btn.classList.remove(
+          "active"
+        );
+
+      });
+
+      button.classList.add("active");
+
+      const selected =
+        styles[
+          button.dataset.style
+        ];
+
+      styleImage.style.opacity = "0";
+
+      /*
+        The image is already small.
+        We change the source only once.
+      */
+
+      const nextImage =
+        new Image();
+
+      nextImage.onload = () => {
+
+        styleImage.src =
+          selected.image;
+
+        styleTitle.textContent =
+          selected.title;
+
+        styleDescription.textContent =
+          selected.description;
+
+        featureList.innerHTML =
+          selected.features
+            .map(item => {
+
+              return `
+                <li>
+                  ${item[0]}
+                  <span>${item[1]}</span>
+                </li>
+              `;
+
+            })
+            .join("");
+
+        requestAnimationFrame(() => {
+
+          styleImage.style.opacity =
+            "1";
+
+          styleChanging = false;
+
+        });
+
+      };
+
+      nextImage.onerror = () => {
+
+        styleImage.style.opacity =
+          "1";
+
+        styleChanging = false;
+
+      };
+
+      nextImage.src =
+        selected.image;
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   MOBILE BOOK BUTTON
+========================================================= */
+
+const mobileBook =
+  document.getElementById(
+    "mobileBook"
+  );
+
+function updateMobileBook(){
+
+  if(window.innerWidth > 600){
+
+    return;
+
+  }
+
+  if(
+    window.scrollY >
+    window.innerHeight * .55
+  ){
+
+    mobileBook.classList.add(
+      "show"
+    );
+
+  }else{
+
+    mobileBook.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateMobileBook,
+  {passive:true}
+);
+
+mobileBook.addEventListener(
+  "click",
+  openBooking
+);
+
+
+/* =========================================================
+   SERVICE → BOOKING
+========================================================= */
+
+document
+  .querySelectorAll(".service")
+  .forEach(service => {
+
+    service.addEventListener(
+      "click",
+      () => {
+
+        openBooking();
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   IMAGE ERROR PROTECTION
+========================================================= */
+
+document
+  .querySelectorAll("img")
+  .forEach(img => {
+
+    img.addEventListener(
+      "error",
+      () => {
+
+        /*
+          Prevent broken-image icons from
+          visually destroying the layout.
+        */
+
+        img.style.visibility =
+          "hidden";
+
+      },
+      {once:true}
+    );
+
+  });
+
+
+/* =========================================================
+   CONNECTION-AWARE QUALITY
+========================================================= */
+
+if(
+  "connection" in navigator
+){
+
+  const connection =
+    navigator.connection;
+
+  /*
+    On slow connections, reduce expensive
+    hover-image behavior.
+  */
+
+  if(
+    connection &&
+    (
+      connection.saveData ||
+      connection.effectiveType === "2g" ||
+      connection.effectiveType === "slow-2g"
+    )
+  ){
+
+    document.body.classList.add(
+      "slow-connection"
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

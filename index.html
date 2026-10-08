@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11110f">
+<meta name="description" content="Premium websites for restaurants, hotels, cafes, beauty studios and travel businesses. Explore our website concepts and start your project.">
+<title>NOVA Studio — Websites That Move Business Forward</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#11110f;
+  --panel:#191916;
+  --cream:#f4f0e8;
+  --muted:#aaa79e;
+  --accent:#d9ff72;
+  --line:rgba(255,255,255,.12);
+  --radius:20px;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{
+  margin:0;background:var(--bg);color:var(--cream);
+  font-family:"DM Sans",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+.muted{color:var(--muted)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  color:var(--accent);font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase
+}
+.eyebrow:before{
+  content:"";width:7px;height:7px;background:var(--accent);
+  border-radius:50%
+}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{font-family:Manrope,sans-serif}
+h2{font-size:clamp(34px,5vw,62px);line-height:1.08;letter-spacing:-2.5px;margin-bottom:18px}
+p{line-height:1.75}
+.btn{
+  display:inline-flex;justify-content:center;align-items:center;gap:12px;
+  min-height:49px;padding:0 21px;border-radius:100px;
+  background:var(--accent);color:#171811;font-weight:700;font-size:13px;
+  border:1px solid var(--accent);transition:transform .2s,background .2s;
+  cursor:pointer
+}
+.btn:hover{transform:translateY(-3px);background:#e5ff9f}
+.btn.secondary{background:transparent;color:var(--cream);border-color:var(--line)}
+.btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+.arrow{font-size:18px}
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(17,17,15,.92);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px)
+}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font:800 21px Manrope,sans-serif;letter-spacing:-1px}
+.logo span{color:var(--accent)}
+.navlinks{display:flex;align-items:center;gap:28px;font-size:12px;color:#d0cec6}
+.navlinks a:hover{color:var(--accent)}
+.menu-btn{
+  display:none;background:transparent;color:var(--cream);
+  border:1px solid var(--line);border-radius:50%;width:42px;height:42px
+}
+.hero{padding:88px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:50px;align-items:center}
+.hero h1{font-size:clamp(48px,7.2vw,88px);line-height:.99;letter-spacing:-5px;margin:24px 0}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-copy{max-width:500px;color:#b5b2aa;font-size:16px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-note{display:flex;align-items:center;gap:12px;margin-top:35px;font-size:12px;color:var(--muted)}
+.note-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px #d9ff7270}
+.hero-visual{position:relative;min-width:0}
+.hero-image{height:460px;border-radius:24px;overflow:hidden;background:#25251f}
+.hero-image img{object-position:center;transition:transform .8s}
+.hero-image:hover img{transform:scale(1.035)}
+.floating-card{
+  position:absolute;left:-25px;bottom:28px;
+  padding:18px 20px;background:#f4f0e8;color:#171711;
+  border-radius:15px;box-shadow:0 12px 40px #0004
+}
+.floating-card small{display:block;font-size:10px;color:#66665d;margin-bottom:5px}
+.floating-card strong{font:700 15px Manrope,sans-serif}
+.floating-number{
+  position:absolute;right:-12px;top:22px;background:var(--accent);
+  color:#171711;padding:13px 17px;border-radius:12px;font-size:11px;font-weight:700
+}
+.trust-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}
+.trust-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.trust-inner span{font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.trust-inner strong{font:600 13px Manrope,sans-serif;color:#e7e4db}
+section{padding:100px 0}
+.section-top{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:36px}
+.section-top p{max-width:410px;color:var(--muted);font-size:14px;margin-bottom:5px}
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.project{min-width:0}
+.project-media{
+  position:relative;display:block;aspect-ratio:1.38;
+  overflow:hidden;border-radius:var(--radius);
+  background:#25251f;border:1px solid var(--line)
+}
+.project-media img{transition:transform .6s,opacity .3s}
+.project:hover .project-media img{transform:scale(1.035)}
+.project-overlay{
+  position:absolute;inset:0;display:flex;align-items:end;justify-content:space-between;
+  padding:20px;background:linear-gradient(transparent 55%,rgba(0,0,0,.68))
+}
+.project-tag{
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  background:rgba(15,15,13,.72);padding:8px 11px;border-radius:30px
+}
+.project-arrow{
+  width:43px;height:43px;display:grid;place-items:center;
+  border-radius:50%;background:var(--accent);color:#15160f;font-size:20px;
+  transition:transform .2s
+}
+.project:hover .project-arrow{transform:rotate(45deg)}
+.project-info{display:flex;justify-content:space-between;align-items:start;gap:12px;padding:18px 2px 5px}
+.project-info h3{font-size:21px;letter-spacing:-.6px;margin-bottom:6px}
+.project-info p{font-size:12px;color:var(--muted);margin:0}
+.project-index{font-size:12px;color:var(--accent)}
+.projects-note{font-size:12px;color:var(--muted);margin-top:22px}
+.services-section{background:#e9e6dc;color:#171711}
+.services-section .eyebrow{color:#626b37}
+.services-section .eyebrow:before{background:#626b37}
+.services-section .muted,.services-section p{color:#696960}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:35px}
+.service{
+  border:1px solid rgba(0,0,0,.12);border-radius:17px;padding:24px;
+  min-height:195px;transition:transform .2s,background .2s
+}
+.service:hover{transform:translateY(-4px);background:#f7f5ef}
+.service .num{font-size:11px;color:#77776c}
+.service h3{font-size:19px;margin:30px 0 9px;letter-spacing:-.5px}
+.service p{font-size:12px;line-height:1.7;margin-bottom:0}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:38px}
+.step{padding:22px;border-top:1px solid var(--line)}
+.step .num{font-size:12px;color:var(--accent)}
+.step h3{font-size:19px;margin:24px 0 10px}
+.step p{font-size:12px;color:var(--muted);margin-bottom:0}
+.cta-panel{
+  padding:clamp(30px,6vw,70px);border-radius:25px;
+  background:var(--accent);color:#161710;
+  display:flex;align-items:end;justify-content:space-between;gap:30px;
+  overflow:hidden;position:relative
+}
+.cta-panel:after{
+  content:"N";position:absolute;right:10%;top:-100px;
+  font:800 360px Manrope,sans-serif;color:rgba(0,0,0,.045);pointer-events:none
+}
+.cta-panel h2{max-width:650px;margin:18px 0 15px}
+.cta-panel p{max-width:460px;color:#46483b;margin-bottom:0}
+.cta-panel .eyebrow{color:#3c4426}
+.cta-panel .eyebrow:before{background:#3c4426}
+.cta-panel .btn{background:#171811;color:#fff;border-color:#171811;position:relative;z-index:1;white-space:nowrap}
+.cta-panel .btn:hover{background:#303126}
+.contact-meta{display:flex;gap:25px;flex-wrap:wrap;margin-top:30px;font-size:12px;color:var(--muted)}
+.contact-meta a:hover{color:var(--accent)}
+footer{padding:30px 0;border-top:1px solid var(--line)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer p{font-size:11px;color:var(--muted);margin:0}
+.footer-links{display:flex;gap:20px;font-size:11px;color:var(--muted)}
+.footer-links a:hover{color:var(--accent)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+ .reveal{opacity:1;transform:none}
+}
+@media(max-width:800px){
+ .hero{padding:58px 0}
+ .hero-grid{grid-template-columns:1fr;gap:35px}
+ .hero h1{letter-spacing:-3.5px}
+ .hero-image{height:390px}
+ .floating-card{left:12px}
+ .floating-number{right:10px}
+ section{padding:75px 0}
+ .services-grid{grid-template-columns:repeat(2,1fr)}
+ .process-grid{grid-template-columns:repeat(2,1fr)}
+ .cta-panel{align-items:start;flex-direction:column}
+ .navlinks{
+   display:none;position:absolute;top:75px;left:0;right:0;padding:20px;
+   background:#171714;border-bottom:1px solid var(--line);
+   flex-direction:column;align-items:stretch;gap:0
+ }
+ .navlinks.open{display:flex}
+ .navlinks a{padding:14px 4px}
+ .menu-btn{display:block}
+ .nav-cta{display:none}
+}
+@media(max-width:540px){
+ .wrap{width:calc(100% - 30px)}
+ .nav{height:67px}
+ .navlinks{top:66px}
+ .hero h1{font-size:51px;letter-spacing:-3px}
+ .hero-copy{font-size:14px}
+ .hero-image{height:300px;border-radius:18px}
+ .section-top{align-items:start;flex-direction:column;gap:8px}
+ h2{letter-spacing:-1.6px}
+ .projects{grid-template-columns:1fr;gap:27px}
+ .project-media{aspect-ratio:1.2}
+ .project-info h3{font-size:19px}
+ .services-grid{grid-template-columns:1fr 1fr;gap:9px}
+ .service{padding:16px;min-height:185px}
+ .service h3{font-size:16px;margin-top:23px}
+ .service p{font-size:11px}
+ .process-grid{gap:7px}
+ .step{padding:17px 12px}
+ .step h3{font-size:16px}
+ .step p{font-size:11px}
+ .cta-panel{padding:28px 22px}
+ .cta-panel h2{font-size:37px}
+ .footer-links{gap:13px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="#home" class="logo" aria-label="NOVA Studio home">NOVA<span>.</span></a>
+    <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+      <a href="#work">Selected work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn nav-cta" href="#contact">Start a project <span class="arrow">↗</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Independent web design studio</span>
+      <h1>Make your business <em>impossible</em> to ignore.</h1>
+      <p class="hero-copy">Premium, modern websites for restaurants, hotels, cafés, beauty studios and ambitious local businesses.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#work">Explore the work <span class="arrow">↓</span></a>
+        <a class="btn secondary" href="#contact">Let's talk <span class="arrow">↗</span></a>
+      </div>
+      <div class="hero-note"><span class="note-dot"></span> Designed to look great. Built to work smoothly.</div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-image">
+        <img
+          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1100&q=80"
+          alt="Contemporary creative studio interior"
+          fetchpriority="high"
+          decoding="async">
+      </div>
+      <div class="floating-card">
+        <small>THE RIGHT FIRST IMPRESSION</small>
+        <strong>Your next website starts here.</strong>
+      </div>
+      <div class="floating-number">DESIGN · BUILD · LAUNCH</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap trust-inner">
+    <span>Built for businesses like yours</span>
+    <strong>Hospitality</strong>
+    <strong>Food & Drink</strong>
+    <strong>Beauty & Grooming</strong>
+    <strong>Travel & Experiences</strong>
+  </div>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <div>
+        <span class="eyebrow">Selected concepts</span>
+        <h2 style="margin-top:18px">Ideas made <span style="color:var(--accent)">real.</span></h2>
+      </div>
+      <p>Explore website concepts created for different types of businesses. Choose a design that fits your industry and see it in action.</p>
+    </div>
+
+    <div class="projects">
+      <article class="project reveal">
+        <a class="project-media" href="https://adlogger41-lang.github.io/Castellis-Restaurant/" target="_blank" rel="noopener noreferrer" aria-label="View restaurant website demo">
+          <img src="images/restaurant.png" alt="Restaurant website design preview" loading="lazy" decoding="async">
+          <div class="project-overlay">
+            <span class="project-tag">Website concept · 01</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </a>
+        <div class="project-info">
+          <div><h3>Restaurant & Dining</h3><p>Menus · Reservations · Food photography</p></div>
+          <span class="project-index">01 / 05</span>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <a class="project-media" href="./hotel/" aria-label="View hotel website demo">
+          <img src="images/hotel.png" alt="Hotel website design preview" loading="lazy" decoding="async">
+          <div class="project-overlay">
+            <span class="project-tag">Website concept · 02</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </a>
+        <div class="project-info">
+          <div><h3>Hotels & Stays</h3><p>Rooms · Amenities · Booking inquiries</p></div>
+          <span class="project-index">02 / 05</span>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <a class="project-media" href="./cafe/" aria-label="View cafe website demo">
+          <img src="images/cafe.png" alt="Café website design preview" loading="lazy" decoding="async">
+          <div class="project-overlay">
+            <span class="project-tag">Website concept · 03</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </a>
+        <div class="project-info">
+          <div><h3>Cafés & Coffee</h3><p>Menu · Brand story · Location</p></div>
+          <span class="project-index">03 / 05</span>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <a class="project-media" href="./beauty/" aria-label="View beauty and grooming website demo">
+          <img src="images/beauty.png" alt="Beauty and grooming website design preview" loading="lazy" decoding="async">
+          <div class="project-overlay">
+            <span class="project-tag">Website concept · 04</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </a>
+        <div class="project-info">
+          <div><h3>Beauty & Grooming</h3><p>Services · Pricing · Appointments</p></div>
+          <span class="project-index">04 / 05</span>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <a class="project-media" href="./travel/" aria-label="View travel website demo">
+          <img src="images/travel.png" alt="Travel and tourism website design preview" loading="lazy" decoding="async">
+          <div class="project-overlay">
+            <span class="project-tag">Website concept · 05</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </a>
+        <div class="project-info">
+          <div><h3>Travel & Experiences</h3><p>Destinations · Tours · Inquiries</p></div>
+          <span class="project-index">05 / 05</span>
+        </div>
+      </article>
+
+      <div class="project reveal" style="display:flex;flex-direction:column;justify-content:center;min-height:230px;padding:30px;border:1px solid var(--line);border-radius:20px;background:var(--panel)">
+        <span class="eyebrow">Your business next?</span>
+        <h3 style="font-size:clamp(25px,3vw,36px);letter-spacing:-1.5px;margin:22px 0 12px">Let's build something that feels like you.</h3>
+        <p class="muted" style="font-size:13px">A tailored website, designed around your brand and goals.</p>
+        <a href="#contact" style="color:var(--accent);font-size:13px;font-weight:700">Discuss your project ↗</a>
+      </div>
+    </div>
+    <p class="projects-note">These are website concepts demonstrating design and functionality, not claims of completed client projects.</p>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">What we create</span>
+      <h2 style="margin-top:18px">More than a pretty page.</h2>
+      <p style="max-width:570px">A website should make it easier for people to understand your business, explore what you offer and get in touch.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service reveal"><span class="num">01 / HOSPITALITY</span><h3>Restaurant Websites</h3><p>Beautiful menus, food galleries, location details and reservation inquiries.</p></article>
+      <article class="service reveal"><span class="num">02 / ACCOMMODATION</span><h3>Hotel Websites</h3><p>Showcase rooms, amenities, experiences and ways to request a booking.</p></article>
+      <article class="service reveal"><span class="num">03 / COFFEE CULTURE</span><h3>Café Websites</h3><p>Bring your atmosphere, drinks, menu and story to life online.</p></article>
+      <article class="service reveal"><span class="num">04 / PERSONAL CARE</span><h3>Beauty & Grooming</h3><p>Present your services, pricing, portfolio and appointment options.</p></article>
+      <article class="service reveal"><span class="num">05 / DISCOVERY</span><h3>Travel Websites</h3><p>Present destinations, tour packages and inquiry options clearly.</p></article>
+      <article class="service reveal"><span class="num">06 / CUSTOM</span><h3>Tailored Projects</h3><p>Have another idea? Let's discuss a website that suits your business.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-top reveal">
+      <div><span class="eyebrow">A clear process</span><h2 style="margin-top:18px">Simple from start to launch.</h2></div>
+      <p>No unnecessary complexity. We focus on understanding your business, building the right experience and making it ready to share.</p>
+    </div>
+    <div class="process-grid">
+      <article class="step reveal"><span class="num">STEP 01</span><h3>Discover</h3><p>We discuss your business, audience, needs and goals.</p></article>
+      <article class="step reveal"><span class="num">STEP 02</span><h3>Design</h3><p>We shape the visual direction and page experience.</p></article>
+      <article class="step reveal"><span class="num">STEP 03</span><h3>Build</h3><p>We create a responsive website and check its key features.</p></article>
+      <article class="step reveal"><span class="num">STEP 04</span><h3>Launch</h3><p>We publish the site after review and agreed changes.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:15px">
+  <div class="wrap">
+    <div class="cta-panel reveal">
+      <div>
+        <span class="eyebrow">Have a project in mind?</span>
+        <h2>Your business deserves a better first impression.</h2>
+        <p>Tell us what you do and what you'd like your website to achieve. Let's explore the right next step.</p>
+      </div>
+      <a class="btn" id="contactBtn" href="https://wa.me/251900000000?text=Hello%20NOVA%20Studio%2C%20I%27m%20interested%20in%20a%20website%20for%20my%20business." target="_blank" rel="noopener noreferrer">Let's talk <span class="arrow">↗</span></a>
+    </div>
+    <div class="contact-meta">
+      <span>Based in Ethiopia · Working with ambitious businesses</span>
+      <a href="#work">Explore the work ↑</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a href="#home" class="logo">NOVA<span>.</span></a>
+    <p>Independent web design studio · © <span id="year"></span></p>
+    <div class="footer-links">
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const menuBtn = document.getElementById('menuBtn');
+  const nav = document.getElementById('navlinks');
+
+  menuBtn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? '×' : '☰';
+  });
+
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(item => observer.observe(item));
+  } else {
+    items.forEach(item => item.classList.add('visible'));
+  }
+})();
+</script>
+</body>
+</html>

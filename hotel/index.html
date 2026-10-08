@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AVENA — Lake Tana Retreat</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f4f0e8;
+    color:#17221c;
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+img{
+    width:100%;
+    display:block;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font:inherit;
+}
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --cream:#f4f0e8;
+    --dark:#101813;
+    --green:#17251d;
+    --gold:#b69b68;
+    --muted:#77796f;
+    --line:rgba(23,34,28,.16);
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#111a14;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    transition:opacity 1s ease, visibility 1s ease;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-inner{
+    text-align:center;
+}
+
+.loader-logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:4rem;
+    letter-spacing:.2em;
+}
+
+.loader-line{
+    width:100px;
+    height:1px;
+    background:#b69b68;
+    margin:20px auto;
+    transform-origin:left;
+    animation:loadLine 1.5s ease infinite;
+}
+
+@keyframes loadLine{
+    0%{transform:scaleX(0)}
+    100%{transform:scaleX(1)}
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.cursor{
+    position:fixed;
+    width:12px;
+    height:12px;
+    border:1px solid white;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:10000;
+    transform:translate(-50%,-50%);
+    transition:
+        width .3s ease,
+        height .3s ease,
+        background .3s ease;
+    mix-blend-mode:difference;
+}
+
+.cursor.big{
+    width:65px;
+    height:65px;
+    background:white;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:2px;
+    width:0;
+    background:#c9ad78;
+    z-index:9998;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:100;
+    padding:28px 5vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:white;
+    transition:.5s ease;
+}
+
+.header.scrolled{
+    position:fixed;
+    background:rgba(16,24,19,.94);
+    backdrop-filter:blur(15px);
+    padding:18px 5vw;
+}
+
+.logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:2rem;
+    letter-spacing:.18em;
+}
+
+.nav{
+    display:flex;
+    gap:35px;
+    align-items:center;
+}
+
+.nav a{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    opacity:.85;
+    position:relative;
+}
+
+.nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-7px;
+    width:0;
+    height:1px;
+    background:#fff;
+    transition:.4s ease;
+}
+
+.nav a:hover::after{
+    width:100%;
+}
+
+.header-book{
+    border:1px solid rgba(255,255,255,.6);
+    padding:12px 20px;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    font-size:.65rem;
+    transition:.4s ease;
+}
+
+.header-book:hover{
+    background:white;
+    color:#142019;
+}
+
+.menu{
+    display:none;
+    width:30px;
+    cursor:pointer;
+}
+
+.menu span{
+    height:1px;
+    background:white;
+    display:block;
+    margin:7px 0;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    height:100vh;
+    min-height:700px;
+    position:relative;
+    overflow:hidden;
+    color:white;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(
+            180deg,
+            rgba(8,15,11,.48),
+            rgba(8,15,11,.08) 40%,
+            rgba(8,15,11,.65)
+        ),
+        url("https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=2400&q=90");
+    background-size:cover;
+    background-position:center;
+    transform:scale(1.05);
+    animation:heroZoom 12s ease forwards;
+}
+
+@keyframes heroZoom{
+    from{transform:scale(1.08)}
+    to{transform:scale(1)}
+}
+
+.hero-content{
+    position:absolute;
+    left:8vw;
+    bottom:22vh;
+    max-width:850px;
+}
+
+.eyebrow{
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.3em;
+    margin-bottom:22px;
+    color:#d6c7a8;
+}
+
+.hero h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(4.5rem,10vw,9.5rem);
+    line-height:.78;
+    font-weight:400;
+    letter-spacing:-.045em;
+}
+
+.hero h1 span{
+    display:block;
+    font-style:italic;
+    padding-left:8vw;
+}
+
+.hero-description{
+    max-width:430px;
+    margin-top:35px;
+    margin-left:8vw;
+    font-size:.9rem;
+    line-height:1.8;
+    color:rgba(255,255,255,.8);
+}
+
+.hero-bottom{
+    position:absolute;
+    bottom:35px;
+    left:5vw;
+    right:5vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+}
+
+.scroll{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.scroll-line{
+    width:50px;
+    height:1px;
+    background:white;
+}
+
+/* =========================================================
+   BOOKING BAR
+========================================================= */
+
+.booking{
+    position:absolute;
+    bottom:0;
+    right:5vw;
+    width:min(650px,90%);
+    background:#f4f0e8;
+    color:#17221c;
+    display:grid;
+    grid-template-columns:repeat(3,1fr) auto;
+    box-shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+.booking-item{
+    padding:18px 20px;
+    border-right:1px solid var(--line);
+}
+
+.booking-item label{
+    display:block;
+    font-size:.58rem;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:#777;
+    margin-bottom:7px;
+}
+
+.booking-item input{
+    border:0;
+    background:transparent;
+    outline:0;
+    width:100%;
+    color:#17221c;
+}
+
+.booking-btn{
+    border:0;
+    background:#17251d;
+    color:white;
+    padding:0 25px;
+    cursor:pointer;
+    text-transform:uppercase;
+    font-size:.62rem;
+    letter-spacing:.16em;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro{
+    padding:160px 10vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    align-items:center;
+}
+
+.intro-label{
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.25em;
+    color:#8a8a80;
+}
+
+.intro h2{
+    margin-top:25px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(3rem,5vw,5.5rem);
+    font-weight:400;
+    line-height:.95;
+}
+
+.intro h2 em{
+    font-style:italic;
+}
+
+.intro-copy{
+    font-size:.9rem;
+    line-height:2;
+    color:#686d65;
+    max-width:450px;
+}
+
+.text-link{
+    display:inline-block;
+    margin-top:35px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.65rem;
+    border-bottom:1px solid #777;
+    padding-bottom:8px;
+}
+
+/* =========================================================
+   FULL IMAGE SECTION
+========================================================= */
+
+.full-image{
+    height:85vh;
+    min-height:600px;
+    position:relative;
+    overflow:hidden;
+}
+
+.full-image img{
+    height:100%;
+    object-fit:cover;
+    transform:scale(1.05);
+    transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
+}
+
+.full-image:hover img{
+    transform:scale(1);
+}
+
+.image-caption{
+    position:absolute;
+    bottom:50px;
+    left:7vw;
+    color:white;
+}
+
+.image-caption small{
+    text-transform:uppercase;
+    letter-spacing:.25em;
+    font-size:.6rem;
+}
+
+.image-caption h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:4rem;
+    font-weight:400;
+    margin-top:8px;
+}
+
+/* =========================================================
+   ROOMS
+========================================================= */
+
+.rooms{
+    padding:150px 5vw;
+}
+
+.section-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:70px;
+}
+
+.section-number{
+    color:#999;
+    font-size:.65rem;
+    letter-spacing:.2em;
+}
+
+.section-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(3.5rem,6vw,6rem);
+    font-weight:400;
+    line-height:.8;
+}
+
+.rooms-grid{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:30px;
+}
+
+.room{
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.room:first-child{
+    height:700px;
+}
+
+.room:last-child{
+    height:520px;
+    margin-top:180px;
+}
+
+.room img{
+    height:100%;
+    object-fit:cover;
+    transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+
+.room:hover img{
+    transform:scale(1.06);
+}
+
+.room-overlay{
+    position:absolute;
+    inset:0;
+    padding:35px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    color:white;
+    background:linear-gradient(
+        transparent 45%,
+        rgba(0,0,0,.7)
+    );
+}
+
+.room-overlay span{
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+}
+
+.room-overlay h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3.5rem;
+    font-weight:400;
+    margin:8px 0;
+}
+
+.room-overlay p{
+    font-size:.78rem;
+    opacity:.8;
+}
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience{
+    background:#17251d;
+    color:white;
+    padding:150px 8vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    align-items:center;
+}
+
+.experience-image{
+    height:700px;
+    overflow:hidden;
+}
+
+.experience-image img{
+    height:100%;
+    object-fit:cover;
+    transition:transform 1.2s ease;
+}
+
+.experience-image:hover img{
+    transform:scale(1.04);
+}
+
+.experience-copy .eyebrow{
+    margin-bottom:25px;
+}
+
+.experience-copy h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(4rem,6vw,6.5rem);
+    font-weight:400;
+    line-height:.85;
+}
+
+.experience-copy p{
+    max-width:420px;
+    margin-top:35px;
+    line-height:2;
+    font-size:.9rem;
+    color:rgba(255,255,255,.65);
+}
+
+.light-link{
+    display:inline-block;
+    margin-top:40px;
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    padding-bottom:9px;
+}
+
+/* =========================================================
+   AMENITIES
+========================================================= */
+
+.amenities{
+    padding:150px 5vw;
+}
+
+.amenity-list{
+    margin-top:80px;
+}
+
+.amenity{
+    display:grid;
+    grid-template-columns:80px 1fr 1fr;
+    align-items:center;
+    padding:35px 0;
+    border-top:1px solid var(--line);
+    transition:.4s ease;
+}
+
+.amenity:last-child{
+    border-bottom:1px solid var(--line);
+}
+
+.amenity:hover{
+    padding-left:20px;
+}
+
+.amenity-number{
+    color:#999;
+    font-size:.65rem;
+}
+
+.amenity h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:2.7rem;
+    font-weight:400;
+}
+
+.amenity p{
+    font-size:.8rem;
+    line-height:1.8;
+    color:#777;
+    max-width:350px;
+}
+
+/* =========================================================
+   STATEMENT
+========================================================= */
+
+.statement{
+    min-height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:100px 10vw;
+    background:#e6e0d4;
+}
+
+.statement h2{
+    font-family:"Cormorant Garamond",serif;
+    font-weight:400;
+    font-size:clamp(4rem,8vw,9rem);
+    line-height:.82;
+    max-width:1100px;
+}
+
+.statement em{
+    color:#8f7950;
+}
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    padding:140px 5vw;
+}
+
+.gallery-grid{
+    margin-top:80px;
+    display:grid;
+    grid-template-columns:1fr 1.4fr 1fr;
+    grid-auto-rows:300px;
+    gap:18px;
+}
+
+.gallery-item{
+    overflow:hidden;
+}
+
+.gallery-item img{
+    height:100%;
+    object-fit:cover;
+    transition:transform 1s ease;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.07);
+}
+
+.gallery-item.tall{
+    grid-row:span 2;
+}
+
+.gallery-item.wide{
+    grid-column:span 2;
+}
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location{
+    padding:140px 8vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    background:#17251d;
+    color:white;
+}
+
+.location h2{
+    font-family:"Cormorant Garamond",serif;
+    font-weight:400;
+    font-size:clamp(4rem,7vw,7rem);
+    line-height:.8;
+}
+
+.location-copy{
+    align-self:end;
+}
+
+.location-copy p{
+    max-width:400px;
+    color:rgba(255,255,255,.65);
+    line-height:2;
+}
+
+.location-details{
+    margin-top:40px;
+    display:grid;
+    gap:12px;
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+}
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final{
+    height:80vh;
+    min-height:600px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+
+.final::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.55)),
+        url("https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+    transition:transform 2s ease;
+}
+
+.final:hover::before{
+    transform:scale(1.03);
+}
+
+.final-content{
+    position:relative;
+    z-index:2;
+}
+
+.final-content .eyebrow{
+    color:#d8c79f;
+}
+
+.final h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(4rem,8vw,8rem);
+    line-height:.8;
+    font-weight:400;
+}
+
+.final-button{
+    display:inline-block;
+    margin-top:45px;
+    border:1px solid rgba(255,255,255,.7);
+    padding:18px 35px;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    font-size:.65rem;
+    transition:.4s ease;
+}
+
+.final-button:hover{
+    background:white;
+    color:#17251d;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#101813;
+    color:white;
+    padding:90px 5vw 35px;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:90px;
+}
+
+.footer-logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3rem;
+    letter-spacing:.15em;
+}
+
+.footer-description{
+    max-width:320px;
+    margin-top:20px;
+    color:#879087;
+    line-height:1.8;
+    font-size:.8rem;
+}
+
+.footer-col h4{
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    color:#8d948d;
+    margin-bottom:20px;
+}
+
+.footer-col a{
+    display:block;
+    margin:10px 0;
+    font-size:.8rem;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);
+    padding-top:25px;
+    display:flex;
+    justify-content:space-between;
+    font-size:.6rem;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    color:#747d76;
+}
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(50px);
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu{
+    position:fixed;
+    inset:0;
+    background:#17251d;
+    color:white;
+    z-index:90;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:translateY(-100%);
+    transition:transform .7s cubic-bezier(.77,0,.18,1);
+}
+
+.mobile-menu.open{
+    transform:translateY(0);
+}
+
+.mobile-menu nav{
+    display:grid;
+    text-align:center;
+    gap:25px;
+}
+
+.mobile-menu a{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3.5rem;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,10,7,.75);
+    backdrop-filter:blur(12px);
+    z-index:999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.4s ease;
+}
+
+.modal.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.modal-box{
+    background:#f4f0e8;
+    width:min(600px,90%);
+    padding:50px;
+    transform:translateY(30px);
+    transition:.5s ease;
+}
+
+.modal.open .modal-box{
+    transform:translateY(0);
+}
+
+.modal-box h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3.5rem;
+    font-weight:400;
+}
+
+.modal-box p{
+    margin:15px 0 35px;
+    color:#777;
+    line-height:1.7;
+    font-size:.85rem;
+}
+
+.close{
+    float:right;
+    border:0;
+    background:none;
+    font-size:1.5rem;
+    cursor:pointer;
+}
+
+.modal-form{
+    display:grid;
+    gap:15px;
+}
+
+.modal-form input,
+.modal-form select{
+    padding:16px;
+    border:1px solid #ccc;
+    background:white;
+    outline:0;
+}
+
+.modal-form button{
+    padding:18px;
+    background:#17251d;
+    color:white;
+    border:0;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    font-size:.65rem;
+    cursor:pointer;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav,
+    .header-book{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero-content{
+        left:7vw;
+        bottom:25vh;
+    }
+
+    .hero h1{
+        font-size:clamp(4rem,17vw,7rem);
+    }
+
+    .hero-description{
+        margin-left:0;
+    }
+
+    .booking{
+        left:5vw;
+        right:5vw;
+        width:auto;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .booking-btn{
+        padding:18px;
+    }
+
+    .intro,
+    .experience,
+    .location{
+        grid-template-columns:1fr;
+        gap:50px;
+    }
+
+    .intro{
+        padding:110px 7vw;
+    }
+
+    .rooms-grid{
+        grid-template-columns:1fr;
+    }
+
+    .room:first-child,
+    .room:last-child{
+        height:600px;
+        margin-top:0;
+    }
+
+    .experience{
+        padding:100px 7vw;
+    }
+
+    .experience-image{
+        height:550px;
+    }
+
+    .amenity{
+        grid-template-columns:50px 1fr;
+        gap:15px;
+    }
+
+    .amenity p{
+        grid-column:2;
+    }
+
+    .gallery-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .gallery-item.wide{
+        grid-column:span 2;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        padding:22px 6vw;
+    }
+
+    .hero{
+        min-height:750px;
+    }
+
+    .hero-bg{
+        background-position:60% center;
+    }
+
+    .hero-content{
+        bottom:260px;
+    }
+
+    .hero h1{
+        font-size:4.5rem;
+    }
+
+    .hero h1 span{
+        padding-left:3vw;
+    }
+
+    .hero-description{
+        font-size:.78rem;
+        max-width:300px;
+    }
+
+    .hero-bottom{
+        display:none;
+    }
+
+    .booking{
+        grid-template-columns:1fr 1fr;
+        bottom:0;
+    }
+
+    .booking-item{
+        padding:14px;
+    }
+
+    .booking-btn{
+        grid-column:span 2;
+    }
+
+    .section-title{
+        font-size:4rem;
+    }
+
+    .rooms,
+    .amenities,
+    .gallery{
+        padding:100px 6vw;
+    }
+
+    .room:first-child,
+    .room:last-child{
+        height:500px;
+    }
+
+    .room-overlay h3{
+        font-size:2.8rem;
+    }
+
+    .full-image{
+        height:70vh;
+    }
+
+    .image-caption h3{
+        font-size:3rem;
+    }
+
+    .experience-image{
+        height:450px;
+    }
+
+    .experience-copy h2{
+        font-size:4.5rem;
+    }
+
+    .gallery-grid{
+        grid-template-columns:1fr;
+        grid-auto-rows:280px;
+    }
+
+    .gallery-item.tall,
+    .gallery-item.wide{
+        grid-row:span 1;
+        grid-column:span 1;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .modal-box{
+        padding:30px;
+    }
+
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+
+<div class="loader">
+    <div class="loader-inner">
+        <div class="loader-logo">AVENA</div>
+        <div class="loader-line"></div>
+        <small>LAKE TANA · ETHIOPIA</small>
+    </div>
+</div>
+
+<!-- CURSOR -->
+
+<div class="cursor"></div>
+
+<!-- PROGRESS -->
+
+<div class="progress"></div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <a href="#" class="logo">AVENA</a>
+
+    <nav class="nav">
+        <a href="#rooms">Rooms</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#location">Location</a>
+    </nav>
+
+    <a href="#" class="header-book open-booking">
+        Book Your Stay
+    </a>
+
+    <div class="menu">
+        <span></span>
+        <span></span>
+    </div>
+
+</header>
+
+
+<!-- MOBILE MENU -->
+
+<div class="mobile-menu">
+
+    <nav>
+        <a href="#rooms">Rooms</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#location">Location</a>
+        <a href="#" class="open-booking">Book</a>
+    </nav>
+
+</div>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content reveal">
+
+        <div class="eyebrow">
+            Lake Tana · Ethiopia
+        </div>
+
+        <h1>
+            Stay
+            <span>somewhere</span>
+            unforgettable.
+        </h1>
+
+        <p class="hero-description">
+            A private retreat shaped by water, light and the quiet beauty
+            of Ethiopia's northern highlands.
+        </p>
+
+    </div>
+
+    <div class="hero-bottom">
+
+        <div class="scroll">
+            <span class="scroll-line"></span>
+            Scroll to discover
+        </div>
+
+        <div>
+            11°36'N · 37°23'E
+        </div>
+
+    </div>
+
+
+    <!-- BOOKING -->
+
+    <div class="booking">
+
+        <div class="booking-item">
+            <label>Check in</label>
+            <input type="date">
+        </div>
+
+        <div class="booking-item">
+            <label>Check out</label>
+            <input type="date">
+        </div>
+
+        <div class="booking-item">
+            <label>Guests</label>
+            <input type="number" value="2" min="1">
+        </div>
+
+        <button class="booking-btn open-booking">
+            Check availability
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- INTRO -->
+
+<section class="intro reveal">
+
+    <div>
+
+        <div class="intro-label">
+            01 — The House
+        </div>
+
+        <h2>
+            A slower way<br>
+            to experience <em>Bahir Dar.</em>
+        </h2>
+
+    </div>
+
+    <div class="intro-copy">
+
+        <p>
+            AVENA is imagined as an intimate lakeside retreat where
+            architecture, landscape and Ethiopian hospitality meet.
+            Mornings begin slowly. Afternoons disappear beside the water.
+            Evenings belong to the table.
+        </p>
+
+        <a href="#experience" class="text-link">
+            Discover the experience →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FULL IMAGE -->
+
+<section class="full-image reveal">
+
+    <img
+        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2200&q=90"
+        alt="Lake and landscape"
+        loading="lazy"
+    >
+
+    <div class="image-caption">
+
+        <small>Lake Tana · 04:57 PM</small>
+
+        <h3>
+            Where the<br>
+            horizon begins.
+        </h3>
+
+    </div>
+
+</section>
+
+
+<!-- ROOMS -->
+
+<section class="rooms" id="rooms">
+
+    <div class="section-top reveal">
+
+        <div>
+            <div class="section-number">02 / 05</div>
+
+            <h2 class="section-title">
+                The Rooms
+            </h2>
+        </div>
+
+        <a href="#" class="text-link">
+            View all rooms →
+        </a>
+
+    </div>
+
+
+    <div class="rooms-grid">
+
+        <article class="room reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1800&q=90"
+                alt="Luxury hotel room"
+                loading="lazy"
+            >
+
+            <div class="room-overlay">
+
+                <span>01 · Suite</span>
+
+                <h3>
+                    Garden Suite
+                </h3>
+
+                <p>
+                    Private terrace · King bed · Garden view
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="room reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1400&q=90"
+                alt="Elegant hotel interior"
+                loading="lazy"
+            >
+
+            <div class="room-overlay">
+
+                <span>02 · Residence</span>
+
+                <h3>
+                    Lake Residence
+                </h3>
+
+                <p>
+                    Private lounge · Lake view · Sunset terrace
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+
+<section class="experience" id="experience">
+
+    <div class="experience-image reveal">
+
+        <img
+            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=90"
+            alt="Luxury interior"
+            loading="lazy"
+        >
+
+    </div>
+
+
+    <div class="experience-copy reveal">
+
+        <div class="eyebrow">
+            03 — The Experience
+        </div>
+
+        <h2>
+            Designed<br>
+            for <em>stillness.</em>
+        </h2>
+
+        <p>
+            Spend the morning on the lake. Return for a long lunch.
+            Wander through gardens in the afternoon. As the sun falls,
+            gather around the table and let the evening take its time.
+        </p>
+
+        <a href="#" class="light-link">
+            Explore experiences →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- AMENITIES -->
+
+<section class="amenities">
+
+    <div class="section-top reveal">
+
+        <div>
+
+            <div class="section-number">
+                04 / 05
+            </div>
+
+            <h2 class="section-title">
+                At Avena
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="amenity-list">
+
+        <div class="amenity reveal">
+
+            <span class="amenity-number">
+                01
+            </span>
+
+            <h3>
+                The Table
+            </h3>
+
+            <p>
+                Seasonal Ethiopian ingredients interpreted through
+                a contemporary dining experience.
+            </p>
+
+        </div>
+
+
+        <div class="amenity reveal">
+
+            <span class="amenity-number">
+                02
+            </span>
+
+            <h3>
+                The Water
+            </h3>
+
+            <p>
+                Private lake excursions, sunset cruises and
+                slow mornings beside Lake Tana.
+            </p>
+
+        </div>
+
+
+        <div class="amenity reveal">
+
+            <span class="amenity-number">
+                03
+            </span>
+
+            <h3>
+                The Garden
+            </h3>
+
+            <p>
+                Native plants, quiet paths and spaces designed
+                for reading, conversation and rest.
+            </p>
+
+        </div>
+
+
+        <div class="amenity reveal">
+
+            <span class="amenity-number">
+                04
+            </span>
+
+            <h3>
+                The Ritual
+            </h3>
+
+            <p>
+                Massage, sauna and private wellness experiences
+                arranged around your stay.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATEMENT -->
+
+<section class="statement">
+
+    <h2 class="reveal">
+        Come for the <em>view.</em><br>
+        Stay for the feeling.
+    </h2>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section class="gallery" id="gallery">
+
+    <div class="section-top reveal">
+
+        <div>
+
+            <div class="section-number">
+                05 / 05
+            </div>
+
+            <h2 class="section-title">
+                The Journal
+            </h2>
+
+        </div>
+
+        <span class="section-number">
+            A glimpse of Avena
+        </span>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+        <div class="gallery-item tall reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=90"
+                alt="Hotel exterior"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=90"
+                alt="Luxury interior"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=90"
+                alt="Pool"
+                loading="lazy"
+            >
+
+        </div>
+
+
+        <div class="gallery-item wide reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1800&q=90"
+                alt="Luxury hotel"
+                loading="lazy"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOCATION -->
+
+<section class="location" id="location">
+
+    <div class="reveal">
+
+        <div class="eyebrow">
+            Find us
+        </div>
+
+        <h2>
+            Close to<br>
+            everything.<br>
+            Far from<br>
+            ordinary.
+        </h2>
+
+    </div>
+
+
+    <div class="location-copy reveal">
+
+        <p>
+            Set beside Lake Tana, AVENA offers an easy starting point
+            for discovering Bahir Dar, the lake's islands and the
+            landscapes surrounding the city.
+        </p>
+
+        <div class="location-details">
+
+            <span>Bahir Dar · Ethiopia</span>
+            <span>Lake Tana Waterfront</span>
+            <span>Airport · 15 min</span>
+
+        </div>
+
+        <a href="#" class="light-link">
+            Get directions →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final">
+
+    <div class="final-content reveal">
+
+        <div class="eyebrow">
+            Your stay begins here
+        </div>
+
+        <h2>
+            Come find<br>
+            your <em>quiet place.</em>
+        </h2>
+
+        <a href="#" class="final-button open-booking">
+            Begin your stay
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-top">
+
+        <div>
+
+            <div class="footer-logo">
+                AVENA
+            </div>
+
+            <p class="footer-description">
+                A fictional boutique hotel concept inspired by
+                the landscapes and hospitality of Lake Tana.
+            </p>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>Explore</h4>
+
+            <a href="#rooms">Rooms</a>
+            <a href="#experience">Experience</a>
+            <a href="#gallery">Gallery</a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>Contact</h4>
+
+            <a href="tel:+251900000000">
+                +251 90 000 0000
+            </a>
+
+            <a href="mailto:stay@avena.example">
+                stay@avena.example
+            </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+            <h4>Social</h4>
+
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">WhatsApp</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 AVENA
+        </span>
+
+        <span>
+            Demo concept · Portfolio project
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- BOOKING MODAL -->
+
+<div class="modal">
+
+    <div class="modal-box">
+
+        <button class="close">
+            ×
+        </button>
+
+        <h2>
+            Begin your stay.
+        </h2>
+
+        <p>
+            This is a portfolio demonstration. The form is
+            currently a front-end interaction.
+        </p>
+
+        <form class="modal-form">
+
+            <input
+                type="text"
+                placeholder="Your name"
+                required
+            >
+
+            <input
+                type="email"
+                placeholder="Email address"
+                required
+            >
+
+            <input
+                type="date"
+                required
+            >
+
+            <select>
+
+                <option>
+                    1 Guest
+                </option>
+
+                <option selected>
+                    2 Guests
+                </option>
+
+                <option>
+                    3 Guests
+                </option>
+
+                <option>
+                    4 Guests
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Request availability
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .querySelector(".loader")
+            .classList.add("hide");
+
+    }, 900);
+
+});
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+const header = document.querySelector(".header");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 80){
+
+        header.classList.add("scrolled");
+
+    }else{
+
+        header.classList.remove("scrolled");
+
+    }
+
+});
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+const progress = document.querySelector(".progress");
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop = window.scrollY;
+
+    const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    progress.style.width =
+        `${(scrollTop / height) * 100}%`;
+
+});
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const observer = new IntersectionObserver(
+
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold:.12
+    }
+
+);
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+const cursor =
+    document.querySelector(".cursor");
+
+if(window.matchMedia("(pointer:fine)").matches){
+
+    document.addEventListener("mousemove", e => {
+
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+
+    });
+
+    document
+        .querySelectorAll("a,button,.room,.gallery-item")
+        .forEach(el => {
+
+            el.addEventListener("mouseenter", () => {
+
+                cursor.classList.add("big");
+
+            });
+
+            el.addEventListener("mouseleave", () => {
+
+                cursor.classList.remove("big");
+
+            });
+
+        });
+
+}else{
+
+    cursor.style.display = "none";
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menu =
+    document.querySelector(".menu");
+
+const mobileMenu =
+    document.querySelector(".mobile-menu");
+
+menu.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("open");
+
+});
+
+document
+    .querySelectorAll(".mobile-menu a")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            mobileMenu.classList.remove("open");
+
+        });
+
+    });
+
+
+/* =========================================================
+   BOOKING MODAL
+========================================================= */
+
+const modal =
+    document.querySelector(".modal");
+
+document
+    .querySelectorAll(".open-booking")
+    .forEach(button => {
+
+        button.addEventListener("click", e => {
+
+            e.preventDefault();
+
+            modal.classList.add("open");
+
+        });
+
+    });
+
+
+document
+    .querySelector(".close")
+    .addEventListener("click", () => {
+
+        modal.classList.remove("open");
+
+    });
+
+
+modal.addEventListener("click", e => {
+
+    if(e.target === modal){
+
+        modal.classList.remove("open");
+
+    }
+
+});
+
+
+/* =========================================================
+   BOOKING FORM
+========================================================= */
+
+document
+    .querySelector(".modal-form")
+    .addEventListener("submit", e => {
+
+        e.preventDefault();
+
+        const button =
+            e.target.querySelector("button");
+
+        button.textContent =
+            "Request received ✓";
+
+        setTimeout(() => {
+
+            modal.classList.remove("open");
+
+            button.textContent =
+                "Request availability";
+
+        }, 1800);
+
+    });
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const heroBg =
+    document.querySelector(".hero-bg");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY < window.innerHeight){
+
+        heroBg.style.transform =
+            `translateY(${window.scrollY * .15}px) scale(1)`;
+
+    }
+
+});
+
+
+/* =========================================================
+   MAGNETIC BUTTON EFFECT
+========================================================= */
+
+if(window.matchMedia("(pointer:fine)").matches){
+
+    document
+        .querySelectorAll(".header-book,.final-button,.light-link")
+        .forEach(button => {
+
+            button.addEventListener("mousemove", e => {
+
+                const rect =
+                    button.getBoundingClientRect();
+
+                const x =
+                    e.clientX - rect.left - rect.width / 2;
+
+                const y =
+                    e.clientY - rect.top - rect.height / 2;
+
+                button.style.transform =
+                    `translate(${x * .12}px,${y * .12}px)`;
+
+            });
+
+            button.addEventListener("mouseleave", () => {
+
+                button.style.transform =
+                    "translate(0,0)";
+
+            });
+
+        });
+
+}
+
+</script>
+
+</body>
+</html>

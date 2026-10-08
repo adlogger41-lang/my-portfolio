@@ -1,0 +1,3045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ABYSSINIA — Discover Ethiopia</title>
+
+<meta name="description"
+content="Discover Ethiopia through unforgettable journeys, ancient cultures, dramatic landscapes and extraordinary experiences.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://images.unsplash.com">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"DM Sans",sans-serif;
+    background:#f5f0e7;
+    color:#17352d;
+    overflow-x:hidden;
+}
+
+img{
+    display:block;
+    width:100%;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --forest:#12382f;
+    --forest-2:#0d2d26;
+    --emerald:#1c5848;
+    --gold:#c89b52;
+    --gold-light:#e4c483;
+    --cream:#f5f0e7;
+    --cream-2:#ebe3d4;
+    --white:#fffdf8;
+    --muted:#718078;
+
+    --radius-lg:28px;
+    --radius-md:20px;
+
+    --shadow:
+        0 20px 60px rgba(13,45,38,.12);
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:var(--forest-2);
+    display:grid;
+    place-items:center;
+    transition:
+        opacity .55s ease,
+        visibility .55s ease;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-inner{
+    text-align:center;
+    color:white;
+}
+
+.loader-mark{
+    width:46px;
+    height:46px;
+    border:2px solid rgba(255,255,255,.2);
+    border-top-color:var(--gold-light);
+    border-radius:50%;
+    margin:auto auto 18px;
+    animation:spin .8s linear infinite;
+}
+
+.loader p{
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    opacity:.7;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:22px 5%;
+    transition:
+        background .3s ease,
+        padding .3s ease,
+        box-shadow .3s ease;
+}
+
+.nav.scrolled{
+    padding:13px 5%;
+    background:rgba(18,56,47,.94);
+    backdrop-filter:blur(14px);
+    box-shadow:0 8px 35px rgba(0,0,0,.12);
+}
+
+.nav-inner{
+    max-width:1400px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    letter-spacing:3px;
+    font-size:15px;
+}
+
+.logo-symbol{
+    width:28px;
+    height:28px;
+    border:1px solid var(--gold-light);
+    border-radius:50%;
+    position:relative;
+}
+
+.logo-symbol::before,
+.logo-symbol::after{
+    content:"";
+    position:absolute;
+    background:var(--gold-light);
+}
+
+.logo-symbol::before{
+    width:1px;
+    height:18px;
+    left:13px;
+    top:4px;
+}
+
+.logo-symbol::after{
+    height:1px;
+    width:18px;
+    left:4px;
+    top:13px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:34px;
+    color:rgba(255,255,255,.8);
+    font-size:13px;
+}
+
+.nav-links a{
+    position:relative;
+    transition:color .25s ease;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-7px;
+    width:0;
+    height:1px;
+    background:var(--gold-light);
+    transition:width .25s ease;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.nav-cta{
+    padding:12px 20px;
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:100px;
+    color:white;
+    transition:
+        background .25s ease,
+        border-color .25s ease;
+}
+
+.nav-cta:hover{
+    background:var(--gold);
+    border-color:var(--gold);
+}
+
+.menu{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+    color:white;
+    font-size:20px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100svh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    background:var(--forest);
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,31,26,.88) 0%,
+            rgba(7,31,26,.62) 43%,
+            rgba(7,31,26,.18) 100%
+        ),
+        url("https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1800&q=78")
+        center/cover no-repeat;
+    transform:scale(1.02);
+    animation:heroReveal 1.3s ease both;
+}
+
+@keyframes heroReveal{
+    from{
+        opacity:0;
+        transform:scale(1.06);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.02);
+    }
+}
+
+.hero-content{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:150px 5% 100px;
+    position:relative;
+    z-index:2;
+}
+
+.hero-copy{
+    max-width:730px;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:var(--gold-light);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:22px;
+}
+
+.eyebrow::before{
+    content:"";
+    width:32px;
+    height:1px;
+    background:var(--gold-light);
+}
+
+.hero h1{
+    color:white;
+    font-family:"Playfair Display",serif;
+    font-size:clamp(58px,8vw,112px);
+    line-height:.91;
+    font-weight:600;
+    letter-spacing:-4px;
+}
+
+.hero h1 span{
+    color:var(--gold-light);
+    font-style:italic;
+}
+
+.hero-text{
+    max-width:520px;
+    color:rgba(255,255,255,.75);
+    font-size:16px;
+    line-height:1.8;
+    margin-top:30px;
+}
+
+.hero-actions{
+    display:flex;
+    gap:14px;
+    margin-top:34px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    min-height:52px;
+    padding:0 23px;
+    border-radius:100px;
+    font-size:13px;
+    font-weight:700;
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:var(--gold);
+    color:var(--forest-2);
+    box-shadow:0 12px 35px rgba(200,155,82,.22);
+}
+
+.btn-primary:hover{
+    background:var(--gold-light);
+    box-shadow:0 15px 40px rgba(200,155,82,.3);
+}
+
+.btn-outline{
+    color:white;
+    border:1px solid rgba(255,255,255,.35);
+}
+
+.btn-outline:hover{
+    background:rgba(255,255,255,.1);
+}
+
+
+/* hero floating info */
+
+.hero-bottom{
+    position:absolute;
+    bottom:38px;
+    left:5%;
+    right:5%;
+    z-index:3;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+}
+
+.hero-stat{
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.hero-stat-number{
+    font-family:"Playfair Display",serif;
+    font-size:27px;
+    color:var(--gold-light);
+}
+
+.hero-stat small{
+    color:rgba(255,255,255,.55);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.scroll-note{
+    color:rgba(255,255,255,.6);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    writing-mode:vertical-rl;
+}
+
+
+/* =========================================================
+   SECTION BASE
+========================================================= */
+
+section{
+    padding:110px 5%;
+}
+
+.section-inner{
+    max-width:1400px;
+    margin:auto;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:30px;
+    margin-bottom:48px;
+}
+
+.section-kicker{
+    color:var(--gold);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin-bottom:13px;
+}
+
+.section-title{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(40px,5vw,68px);
+    line-height:1;
+    font-weight:600;
+    letter-spacing:-2px;
+    color:var(--forest);
+}
+
+.section-description{
+    max-width:420px;
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   SEARCH BAR
+========================================================= */
+
+.trip-search{
+    position:relative;
+    z-index:10;
+    max-width:1120px;
+    margin:-45px auto 0;
+    background:var(--white);
+    border-radius:22px;
+    padding:13px;
+    box-shadow:0 25px 70px rgba(13,45,38,.16);
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr auto;
+}
+
+.search-item{
+    padding:13px 20px;
+    border-right:1px solid #e8e1d5;
+}
+
+.search-item label{
+    display:block;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:#929990;
+    margin-bottom:7px;
+}
+
+.search-item select{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--forest);
+    font-size:13px;
+    font-weight:600;
+    appearance:none;
+}
+
+.search-btn{
+    min-width:130px;
+    border-radius:14px;
+    background:var(--forest);
+    color:white;
+    transition:background .25s ease;
+}
+
+.search-btn:hover{
+    background:var(--emerald);
+}
+
+
+/* =========================================================
+   DESTINATIONS
+========================================================= */
+
+.destinations{
+    background:var(--cream);
+}
+
+.destination-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:18px;
+}
+
+.destination-card{
+    height:510px;
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--radius-lg);
+    color:white;
+    isolation:isolate;
+}
+
+.destination-card.large{
+    height:560px;
+}
+
+.destination-card img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.destination-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    background:
+        linear-gradient(
+            to top,
+            rgba(6,26,21,.82),
+            rgba(6,26,21,.04) 65%
+        );
+}
+
+.destination-card:hover img{
+    transform:scale(1.055);
+}
+
+.destination-content{
+    position:absolute;
+    inset:auto 25px 25px;
+}
+
+.destination-tag{
+    display:inline-block;
+    color:var(--gold-light);
+    font-size:9px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.destination-name{
+    font-family:"Playfair Display",serif;
+    font-size:35px;
+    line-height:1;
+    margin-bottom:10px;
+}
+
+.destination-info{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:rgba(255,255,255,.68);
+    font-size:11px;
+}
+
+.arrow-circle{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:50%;
+    color:white;
+    transition:
+        background .25s ease,
+        transform .25s ease;
+}
+
+.destination-card:hover .arrow-circle{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--forest);
+    transform:rotate(-45deg);
+}
+
+
+/* =========================================================
+   EXPERIENCES
+========================================================= */
+
+.experiences{
+    background:var(--white);
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.filter{
+    padding:9px 16px;
+    border-radius:100px;
+    border:1px solid #ddd6c9;
+    background:transparent;
+    color:#68736d;
+    font-size:11px;
+    transition:.25s ease;
+}
+
+.filter.active,
+.filter:hover{
+    background:var(--forest);
+    border-color:var(--forest);
+    color:white;
+}
+
+.experience-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.experience-card{
+    background:var(--cream);
+    border-radius:22px;
+    overflow:hidden;
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.experience-card:hover{
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+}
+
+.experience-image{
+    height:270px;
+    overflow:hidden;
+    position:relative;
+}
+
+.experience-image img{
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s ease;
+}
+
+.experience-card:hover .experience-image img{
+    transform:scale(1.045);
+}
+
+.price{
+    position:absolute;
+    right:15px;
+    top:15px;
+    padding:8px 12px;
+    background:rgba(255,253,248,.94);
+    backdrop-filter:blur(8px);
+    border-radius:100px;
+    color:var(--forest);
+    font-size:11px;
+    font-weight:700;
+}
+
+.experience-body{
+    padding:23px;
+}
+
+.experience-category{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:9px;
+}
+
+.experience-title{
+    font-family:"Playfair Display",serif;
+    font-size:26px;
+    margin-bottom:10px;
+    color:var(--forest);
+}
+
+.experience-body p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+.experience-footer{
+    margin-top:20px;
+    padding-top:17px;
+    border-top:1px solid #ddd6ca;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#647069;
+    font-size:10px;
+}
+
+.experience-link{
+    color:var(--forest);
+    font-weight:700;
+}
+
+
+/* =========================================================
+   MAP / JOURNEY
+========================================================= */
+
+.journey{
+    background:var(--forest);
+    color:white;
+}
+
+.journey .section-title{
+    color:white;
+}
+
+.journey .section-description{
+    color:rgba(255,255,255,.6);
+}
+
+.journey-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.map{
+    min-height:520px;
+    border-radius:28px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 40%,rgba(200,155,82,.09),transparent 30%),
+        #0e3028;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.map::before{
+    content:"ETHIOPIA";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-family:"Playfair Display",serif;
+    font-size:70px;
+    letter-spacing:4px;
+    color:rgba(255,255,255,.035);
+}
+
+.map-line{
+    position:absolute;
+    left:27%;
+    top:24%;
+    width:47%;
+    height:55%;
+    border-left:1px dashed rgba(228,196,131,.35);
+    border-bottom:1px dashed rgba(228,196,131,.35);
+    transform:skewY(-12deg);
+}
+
+.map-point{
+    position:absolute;
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    background:var(--gold-light);
+    box-shadow:
+        0 0 0 7px rgba(228,196,131,.1);
+    cursor:pointer;
+}
+
+.map-point::after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:white;
+    left:4px;
+    top:4px;
+}
+
+.map-point.active{
+    animation:pulse 1.8s ease infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        box-shadow:0 0 0 6px rgba(228,196,131,.08);
+    }
+    50%{
+        box-shadow:0 0 0 15px rgba(228,196,131,.03);
+    }
+}
+
+.point-bahir{
+    left:32%;
+    top:42%;
+}
+
+.point-lalibela{
+    left:51%;
+    top:29%;
+}
+
+.point-simien{
+    left:57%;
+    top:20%;
+}
+
+.point-danakil{
+    left:70%;
+    top:30%;
+}
+
+.point-addis{
+    left:51%;
+    top:69%;
+}
+
+.map-label{
+    position:absolute;
+    margin-left:17px;
+    margin-top:-4px;
+    white-space:nowrap;
+    font-size:10px;
+    color:rgba(255,255,255,.72);
+}
+
+.route-list{
+    display:flex;
+    flex-direction:column;
+}
+
+.route-item{
+    display:grid;
+    grid-template-columns:45px 1fr auto;
+    gap:16px;
+    align-items:center;
+    padding:22px 0;
+    border-bottom:1px solid rgba(255,255,255,.09);
+    cursor:pointer;
+    transition:padding .25s ease;
+}
+
+.route-item:hover,
+.route-item.active{
+    padding-left:10px;
+}
+
+.route-number{
+    color:var(--gold-light);
+    font-size:11px;
+}
+
+.route-name{
+    font-family:"Playfair Display",serif;
+    font-size:25px;
+}
+
+.route-desc{
+    color:rgba(255,255,255,.5);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.route-arrow{
+    color:rgba(255,255,255,.5);
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    padding:65px 5%;
+    background:var(--gold);
+}
+
+.stats-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.stat{
+    text-align:center;
+    border-right:1px solid rgba(18,56,47,.2);
+}
+
+.stat:last-child{
+    border:0;
+}
+
+.stat-number{
+    font-family:"Playfair Display",serif;
+    font-size:52px;
+    color:var(--forest);
+}
+
+.stat-label{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:rgba(18,56,47,.65);
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    background:var(--cream);
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:1.1fr .8fr .8fr;
+    grid-template-rows:240px 240px;
+    gap:14px;
+}
+
+.gallery-item{
+    overflow:hidden;
+    border-radius:18px;
+    position:relative;
+    cursor:pointer;
+}
+
+.gallery-item:first-child{
+    grid-row:span 2;
+}
+
+.gallery-item img{
+    height:100%;
+    object-fit:cover;
+    transition:transform .65s ease;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.045);
+}
+
+.gallery-overlay{
+    position:absolute;
+    inset:auto 15px 15px;
+    color:white;
+    font-size:11px;
+    opacity:0;
+    transform:translateY(8px);
+    transition:.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay{
+    opacity:1;
+    transform:none;
+}
+
+.gallery-overlay span{
+    padding:7px 11px;
+    border-radius:100px;
+    background:rgba(13,45,38,.7);
+    backdrop-filter:blur(8px);
+}
+
+
+/* =========================================================
+   TESTIMONIALS
+========================================================= */
+
+.testimonials{
+    background:var(--white);
+}
+
+.testimonial-wrap{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.quote-mark{
+    font-family:"Playfair Display",serif;
+    font-size:75px;
+    line-height:.6;
+    color:var(--gold);
+}
+
+.quote{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(27px,4vw,45px);
+    line-height:1.25;
+    color:var(--forest);
+    margin:30px 0;
+}
+
+.traveler{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.traveler strong{
+    display:block;
+    font-size:12px;
+    text-align:left;
+}
+
+.traveler small{
+    color:var(--muted);
+    font-size:10px;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.final-cta{
+    padding:120px 5%;
+    background:
+        linear-gradient(
+            rgba(10,39,32,.85),
+            rgba(10,39,32,.92)
+        ),
+        url("https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1600&q=72")
+        center/cover;
+    text-align:center;
+    color:white;
+}
+
+.final-cta .section-kicker{
+    color:var(--gold-light);
+}
+
+.final-title{
+    max-width:850px;
+    margin:auto;
+    font-family:"Playfair Display",serif;
+    font-size:clamp(45px,7vw,82px);
+    line-height:.98;
+}
+
+.final-title em{
+    color:var(--gold-light);
+    font-weight:500;
+}
+
+.final-cta p{
+    max-width:500px;
+    margin:25px auto 32px;
+    color:rgba(255,255,255,.65);
+    font-size:14px;
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#0a2822;
+    color:white;
+    padding:65px 5% 30px;
+}
+
+.footer-inner{
+    max-width:1400px;
+    margin:auto;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:55px;
+}
+
+.footer-brand p{
+    max-width:300px;
+    color:rgba(255,255,255,.45);
+    font-size:12px;
+    line-height:1.8;
+    margin-top:18px;
+}
+
+.footer-col h4{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--gold-light);
+    margin-bottom:18px;
+}
+
+.footer-col a{
+    display:block;
+    color:rgba(255,255,255,.55);
+    font-size:12px;
+    margin-bottom:11px;
+    transition:color .2s ease;
+}
+
+.footer-col a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    padding-top:25px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:space-between;
+    color:rgba(255,255,255,.35);
+    font-size:10px;
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,20,17,.9);
+    z-index:5000;
+    display:none;
+    place-items:center;
+    padding:25px;
+}
+
+.modal.open{
+    display:grid;
+}
+
+.modal img{
+    max-width:min(1000px,95vw);
+    max-height:85vh;
+    width:auto;
+    border-radius:18px;
+    object-fit:contain;
+}
+
+.modal-close{
+    position:absolute;
+    top:25px;
+    right:25px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+    color:white;
+    font-size:22px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        position:absolute;
+        top:70px;
+        left:5%;
+        right:5%;
+        padding:22px;
+        border-radius:20px;
+        background:var(--forest);
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+        box-shadow:0 20px 50px rgba(0,0,0,.2);
+
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-8px);
+        transition:.25s ease;
+    }
+
+    .nav-links.open{
+        opacity:1;
+        visibility:visible;
+        transform:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .nav-cta{
+        display:none;
+    }
+
+    .trip-search{
+        margin:-25px 5% 0;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-item:nth-child(2){
+        border-right:0;
+    }
+
+    .search-btn{
+        grid-column:span 2;
+        min-height:50px;
+    }
+
+    .destination-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .destination-card.large{
+        grid-column:span 2;
+    }
+
+    .experience-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .journey-layout{
+        grid-template-columns:1fr;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+        row-gap:35px;
+    }
+
+    .stat:nth-child(2){
+        border:0;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+
+@media(max-width:600px){
+
+    section{
+        padding:80px 5%;
+    }
+
+    .hero-content{
+        padding-top:150px;
+    }
+
+    .hero h1{
+        font-size:58px;
+        letter-spacing:-2px;
+    }
+
+    .hero-text{
+        font-size:14px;
+    }
+
+    .hero-bottom{
+        bottom:20px;
+    }
+
+    .scroll-note{
+        display:none;
+    }
+
+    .trip-search{
+        grid-template-columns:1fr;
+        padding:10px;
+    }
+
+    .search-item{
+        border-right:0;
+        border-bottom:1px solid #e8e1d5;
+    }
+
+    .search-btn{
+        grid-column:auto;
+    }
+
+    .section-head{
+        display:block;
+    }
+
+    .section-description{
+        margin-top:20px;
+    }
+
+    .destination-grid{
+        grid-template-columns:1fr;
+    }
+
+    .destination-card,
+    .destination-card.large{
+        grid-column:auto;
+        height:420px;
+    }
+
+    .experience-grid{
+        grid-template-columns:1fr;
+    }
+
+    .experience-image{
+        height:250px;
+    }
+
+    .journey-layout{
+        gap:35px;
+    }
+
+    .map{
+        min-height:400px;
+    }
+
+    .map::before{
+        font-size:42px;
+    }
+
+    .gallery-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:180px 180px 180px;
+    }
+
+    .gallery-item:first-child{
+        grid-column:span 2;
+        grid-row:auto;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- =======================================================
+     LOADER
+======================================================= -->
+
+<div class="loader" id="loader">
+    <div class="loader-inner">
+        <div class="loader-mark"></div>
+        <p>Preparing your journey</p>
+    </div>
+</div>
+
+
+<!-- =======================================================
+     NAV
+======================================================= -->
+
+<header class="nav" id="nav">
+
+    <div class="nav-inner">
+
+        <a href="#" class="logo">
+            <span class="logo-symbol"></span>
+            ABYSSINIA
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#destinations">Destinations</a>
+            <a href="#experiences">Experiences</a>
+            <a href="#journey">Your Journey</a>
+            <a href="#stories">Stories</a>
+        </nav>
+
+        <a href="#contact" class="nav-cta">
+            Plan a Trip
+        </a>
+
+        <button class="menu" id="menuBtn" aria-label="Open menu">
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<main>
+
+<section class="hero">
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-copy reveal visible">
+
+            <div class="eyebrow">
+                The land of origins
+            </div>
+
+            <h1>
+                Discover<br>
+                <span>Ethiopia.</span>
+            </h1>
+
+            <p class="hero-text">
+                From ancient cities carved into stone to wild mountains,
+                volcanic landscapes and endless horizons — experience
+                Ethiopia beyond the ordinary.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#destinations" class="btn btn-primary">
+                    Explore Ethiopia
+                    <span>↗</span>
+                </a>
+
+                <a href="#experiences" class="btn btn-outline">
+                    View experiences
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-bottom">
+
+        <div class="hero-stat">
+            <span class="hero-stat-number">3,000+</span>
+            <small>Years of history</small>
+        </div>
+
+        <div class="scroll-note">
+            Scroll to explore
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SEARCH
+======================================================= -->
+
+<div class="trip-search">
+
+    <div class="search-item">
+        <label>Where</label>
+
+        <select id="destinationSelect">
+            <option value="">Choose destination</option>
+            <option>Bahir Dar</option>
+            <option>Lalibela</option>
+            <option>Simien Mountains</option>
+            <option>Danakil Depression</option>
+            <option>Addis Ababa</option>
+        </select>
+    </div>
+
+    <div class="search-item">
+        <label>Travel style</label>
+
+        <select id="styleSelect">
+            <option value="">Choose style</option>
+            <option>Adventure</option>
+            <option>Culture</option>
+            <option>Nature</option>
+            <option>Relaxation</option>
+        </select>
+    </div>
+
+    <div class="search-item">
+        <label>Duration</label>
+
+        <select id="durationSelect">
+            <option value="">Choose duration</option>
+            <option>2–4 days</option>
+            <option>5–7 days</option>
+            <option>8–12 days</option>
+            <option>12+ days</option>
+        </select>
+    </div>
+
+    <button class="search-btn" id="searchBtn">
+        Find my journey →
+    </button>
+
+</div>
+
+
+<!-- =======================================================
+     DESTINATIONS
+======================================================= -->
+
+<section class="destinations" id="destinations">
+
+    <div class="section-inner">
+
+        <div class="section-head reveal">
+
+            <div>
+                <div class="section-kicker">
+                    Where will you go?
+                </div>
+
+                <h2 class="section-title">
+                    Places worth<br>remembering.
+                </h2>
+            </div>
+
+            <p class="section-description">
+                Ethiopia is a country of contrasts — ancient kingdoms,
+                highland forests, enormous lakes and landscapes that
+                feel like another planet.
+            </p>
+
+        </div>
+
+
+        <div class="destination-grid">
+
+            <!-- BAHIR DAR -->
+
+            <article class="destination-card large reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1100&q=76"
+                    alt="Lake and natural landscape"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="destination-content">
+
+                    <span class="destination-tag">
+                        Lakes & Culture
+                    </span>
+
+                    <h3 class="destination-name">
+                        Bahir Dar
+                    </h3>
+
+                    <div class="destination-info">
+
+                        <span>
+                            Lake Tana · Blue Nile
+                        </span>
+
+                        <span class="arrow-circle">
+                            ↗
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- LALIBELA -->
+
+            <article class="destination-card reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=900&q=76"
+                    alt="Historic African architecture"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="destination-content">
+
+                    <span class="destination-tag">
+                        Ancient Kingdom
+                    </span>
+
+                    <h3 class="destination-name">
+                        Lalibela
+                    </h3>
+
+                    <div class="destination-info">
+
+                        <span>
+                            Rock-hewn churches
+                        </span>
+
+                        <span class="arrow-circle">
+                            ↗
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- SIMIEN -->
+
+            <article class="destination-card reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=76"
+                    alt="African mountain landscape"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="destination-content">
+
+                    <span class="destination-tag">
+                        Wilderness
+                    </span>
+
+                    <h3 class="destination-name">
+                        Simien
+                    </h3>
+
+                    <div class="destination-info">
+
+                        <span>
+                            Mountains & wildlife
+                        </span>
+
+                        <span class="arrow-circle">
+                            ↗
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     EXPERIENCES
+======================================================= -->
+
+<section class="experiences" id="experiences">
+
+    <div class="section-inner">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <div class="section-kicker">
+                    Choose your adventure
+                </div>
+
+                <h2 class="section-title">
+                    Travel deeper.
+                </h2>
+
+            </div>
+
+            <p class="section-description">
+                Curated experiences designed around Ethiopia's most
+                remarkable places, cultures and landscapes.
+            </p>
+
+        </div>
+
+
+        <div class="filters">
+
+            <button class="filter active" data-filter="all">
+                All
+            </button>
+
+            <button class="filter" data-filter="adventure">
+                Adventure
+            </button>
+
+            <button class="filter" data-filter="culture">
+                Culture
+            </button>
+
+            <button class="filter" data-filter="nature">
+                Nature
+            </button>
+
+            <button class="filter" data-filter="relaxation">
+                Relaxation
+            </button>
+
+        </div>
+
+
+        <div class="experience-grid" style="margin-top:28px;">
+
+
+            <!-- EXPERIENCE 1 -->
+
+            <article class="experience-card reveal" data-category="nature">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=74"
+                        alt="Lake landscape"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $390
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Nature · 4 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        Blue Nile Escape
+                    </h3>
+
+                    <p>
+                        Discover Lake Tana, island monasteries and the
+                        dramatic Blue Nile landscapes around Bahir Dar.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>Small group</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- EXPERIENCE 2 -->
+
+            <article class="experience-card reveal" data-category="culture">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=900&q=74"
+                        alt="Historic architecture"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $520
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Culture · 5 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        The Ancient Route
+                    </h3>
+
+                    <p>
+                        Walk through centuries of Ethiopian history,
+                        architecture, traditions and sacred places.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>Private guide</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- EXPERIENCE 3 -->
+
+            <article class="experience-card reveal" data-category="adventure">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=74"
+                        alt="Mountain wilderness"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $680
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Adventure · 6 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        Simien Highlands
+                    </h3>
+
+                    <p>
+                        Trek through dramatic highland scenery and
+                        experience some of Ethiopia's wildest landscapes.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>Guided trek</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- EXPERIENCE 4 -->
+
+            <article class="experience-card reveal" data-category="adventure">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=74"
+                        alt="Natural landscape"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $760
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Adventure · 5 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        Wild North
+                    </h3>
+
+                    <p>
+                        Explore remote landscapes, mountain roads and
+                        spectacular northern scenery.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>Adventure route</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- EXPERIENCE 5 -->
+
+            <article class="experience-card reveal" data-category="relaxation">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=74"
+                        alt="Peaceful lake environment"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $450
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Relaxation · 4 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        Lake Tana Retreat
+                    </h3>
+
+                    <p>
+                        Slow down beside Ethiopia's largest lake with
+                        peaceful mornings, boat journeys and local food.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>Relaxed pace</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- EXPERIENCE 6 -->
+
+            <article class="experience-card reveal" data-category="culture">
+
+                <div class="experience-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?auto=format&fit=crop&w=900&q=74"
+                        alt="Historic destination"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                    <span class="price">
+                        From $330
+                    </span>
+
+                </div>
+
+                <div class="experience-body">
+
+                    <div class="experience-category">
+                        Culture · 3 days
+                    </div>
+
+                    <h3 class="experience-title">
+                        Addis Stories
+                    </h3>
+
+                    <p>
+                        Discover markets, coffee culture, contemporary
+                        Ethiopia and the capital's fascinating history.
+                    </p>
+
+                    <div class="experience-footer">
+                        <span>City experience</span>
+                        <span class="experience-link">
+                            Explore →
+                        </span>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     JOURNEY
+======================================================= -->
+
+<section class="journey" id="journey">
+
+    <div class="section-inner">
+
+        <div class="section-head reveal">
+
+            <div>
+                <div class="section-kicker">
+                    One country. Endless routes.
+                </div>
+
+                <h2 class="section-title">
+                    Build your<br>journey.
+                </h2>
+            </div>
+
+            <p class="section-description">
+                Move from the highlands to the lakes, from ancient
+                cities to remote wilderness. Your Ethiopia story is
+                yours to design.
+            </p>
+
+        </div>
+
+
+        <div class="journey-layout">
+
+
+            <div class="map reveal">
+
+                <div class="map-line"></div>
+
+
+                <div class="map-point point-simien active"
+                     data-place="Simien Mountains">
+                    <span class="map-label">Simien</span>
+                </div>
+
+                <div class="map-point point-bahir"
+                     data-place="Bahir Dar">
+                    <span class="map-label">Bahir Dar</span>
+                </div>
+
+                <div class="map-point point-lalibela"
+                     data-place="Lalibela">
+                    <span class="map-label">Lalibela</span>
+                </div>
+
+                <div class="map-point point-danakil"
+                     data-place="Danakil Depression">
+                    <span class="map-label">Danakil</span>
+                </div>
+
+                <div class="map-point point-addis"
+                     data-place="Addis Ababa">
+                    <span class="map-label">Addis</span>
+                </div>
+
+            </div>
+
+
+            <div class="route-list">
+
+                <div class="route-item active reveal"
+                     data-route="Simien Mountains">
+
+                    <span class="route-number">01</span>
+
+                    <div>
+                        <div class="route-name">
+                            Simien Mountains
+                        </div>
+
+                        <div class="route-desc">
+                            Dramatic peaks · Wildlife · Trekking
+                        </div>
+                    </div>
+
+                    <span class="route-arrow">↗</span>
+
+                </div>
+
+
+                <div class="route-item reveal"
+                     data-route="Lalibela">
+
+                    <span class="route-number">02</span>
+
+                    <div>
+                        <div class="route-name">
+                            Lalibela
+                        </div>
+
+                        <div class="route-desc">
+                            Ancient churches · History · Culture
+                        </div>
+                    </div>
+
+                    <span class="route-arrow">↗</span>
+
+                </div>
+
+
+                <div class="route-item reveal"
+                     data-route="Bahir Dar">
+
+                    <span class="route-number">03</span>
+
+                    <div>
+                        <div class="route-name">
+                            Bahir Dar
+                        </div>
+
+                        <div class="route-desc">
+                            Lake Tana · Blue Nile · Monasteries
+                        </div>
+                    </div>
+
+                    <span class="route-arrow">↗</span>
+
+                </div>
+
+
+                <div class="route-item reveal"
+                     data-route="Danakil Depression">
+
+                    <span class="route-number">04</span>
+
+                    <div>
+                        <div class="route-name">
+                            Danakil
+                        </div>
+
+                        <div class="route-desc">
+                            Volcanoes · Salt plains · Expedition
+                        </div>
+                    </div>
+
+                    <span class="route-arrow">↗</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     STATS
+======================================================= -->
+
+<section class="stats">
+
+    <div class="stats-grid">
+
+        <div class="stat reveal">
+            <div class="stat-number" data-target="48">0</div>
+            <div class="stat-label">Destinations</div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number" data-target="16">0</div>
+            <div class="stat-label">Curated journeys</div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number" data-target="12">0</div>
+            <div class="stat-label">Years exploring</div>
+        </div>
+
+        <div class="stat reveal">
+            <div class="stat-number" data-target="98">0</div>
+            <div class="stat-label">Traveler satisfaction</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     GALLERY
+======================================================= -->
+
+<section class="gallery">
+
+    <div class="section-inner">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <div class="section-kicker">
+                    From our journeys
+                </div>
+
+                <h2 class="section-title">
+                    Ethiopia,<br>through our eyes.
+                </h2>
+
+            </div>
+
+            <p class="section-description">
+                Every journey creates a collection of moments —
+                landscapes, people, food, light and stories.
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1100&q=76"
+                    alt="African wilderness"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-overlay">
+                    <span>Highlands</span>
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=74"
+                    alt="Lake landscape"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-overlay">
+                    <span>Lake Tana</span>
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=700&q=74"
+                    alt="Historic architecture"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-overlay">
+                    <span>Ancient Ethiopia</span>
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=700&q=74"
+                    alt="Mountain landscape"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-overlay">
+                    <span>Wild North</span>
+                </div>
+
+            </div>
+
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=700&q=74"
+                    alt="Nature landscape"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <div class="gallery-overlay">
+                    <span>Adventure</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     TESTIMONIAL
+======================================================= -->
+
+<section class="testimonials" id="stories">
+
+    <div class="testimonial-wrap reveal">
+
+        <div class="quote-mark">
+            “
+        </div>
+
+        <blockquote class="quote">
+            Ethiopia completely changed what I thought
+            an adventure could feel like.
+        </blockquote>
+
+        <div class="traveler">
+
+            <img
+                class="avatar"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=70"
+                alt="Traveler"
+                loading="lazy"
+                decoding="async"
+            >
+
+            <div>
+                <strong>
+                    Sofia M.
+                </strong>
+
+                <small>
+                    Traveler · Portugal
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL CTA
+======================================================= -->
+
+<section class="final-cta" id="contact">
+
+    <div class="section-kicker">
+        Your next story starts here
+    </div>
+
+    <h2 class="final-title">
+        Don't just visit Ethiopia.<br>
+        <em>Experience it.</em>
+    </h2>
+
+    <p>
+        Tell us what kind of journey you're dreaming about and
+        we'll help shape it into something unforgettable.
+    </p>
+
+    <a href="mailto:hello@abyssinia.example"
+       class="btn btn-primary">
+        Start planning →
+    </a>
+
+</section>
+
+</main>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo">
+                    <span class="logo-symbol"></span>
+                    ABYSSINIA
+                </a>
+
+                <p>
+                    Curated journeys across one of Africa's
+                    most extraordinary countries.
+                </p>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>Explore</h4>
+
+                <a href="#destinations">
+                    Destinations
+                </a>
+
+                <a href="#experiences">
+                    Experiences
+                </a>
+
+                <a href="#journey">
+                    Your Journey
+                </a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>Company</h4>
+
+                <a href="#">
+                    About us
+                </a>
+
+                <a href="#">
+                    Our guides
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-col">
+
+                <h4>Follow</h4>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    Facebook
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Abyssinia Travel
+            </span>
+
+            <span>
+                Crafted for extraordinary journeys.
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =======================================================
+     IMAGE MODAL
+======================================================= -->
+
+<div class="modal" id="imageModal">
+
+    <button class="modal-close" id="modalClose">
+        ×
+    </button>
+
+    <img id="modalImage" src="" alt="Expanded gallery image">
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    const loader = document.getElementById("loader");
+
+    setTimeout(() => {
+        loader.classList.add("hide");
+    }, 350);
+
+});
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const nav = document.getElementById("nav");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 30){
+        nav.classList.add("scrolled");
+    }else{
+        nav.classList.remove("scrolled");
+    }
+
+}, {passive:true});
+
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("open");
+
+    menuBtn.textContent =
+        navLinks.classList.contains("open")
+        ? "×"
+        : "☰";
+
+});
+
+
+navLinks.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.textContent = "☰";
+    });
+
+});
+
+
+/* =========================================================
+   REVEAL ON SCROLL
+========================================================= */
+
+const revealObserver =
+new IntersectionObserver((entries, observer) => {
+
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("visible");
+
+            observer.unobserve(entry.target);
+
+        }
+
+    });
+
+},{
+    threshold:.12,
+    rootMargin:"0px 0px -30px 0px"
+});
+
+
+document.querySelectorAll(".reveal:not(.visible)")
+.forEach(el => revealObserver.observe(el));
+
+
+/* =========================================================
+   EXPERIENCE FILTER
+========================================================= */
+
+const filters =
+document.querySelectorAll(".filter");
+
+const experienceCards =
+document.querySelectorAll(".experience-card");
+
+
+filters.forEach(filter => {
+
+    filter.addEventListener("click", () => {
+
+        filters.forEach(item =>
+            item.classList.remove("active")
+        );
+
+        filter.classList.add("active");
+
+        const selected =
+            filter.dataset.filter;
+
+        experienceCards.forEach(card => {
+
+            const category =
+                card.dataset.category;
+
+            const show =
+                selected === "all" ||
+                category === selected;
+
+            if(show){
+
+                card.style.display = "";
+
+                requestAnimationFrame(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "";
+                });
+
+            }else{
+
+                card.style.opacity = "0";
+                card.style.transform = "translateY(8px)";
+
+                setTimeout(() => {
+                    if(card.style.opacity === "0"){
+                        card.style.display = "none";
+                    }
+                },180);
+
+            }
+
+        });
+
+    });
+
+});
+
+
+/* =========================================================
+   MAP / ROUTES
+========================================================= */
+
+const routeItems =
+document.querySelectorAll(".route-item");
+
+const mapPoints =
+document.querySelectorAll(".map-point");
+
+
+function activatePlace(place){
+
+    routeItems.forEach(item => {
+
+        item.classList.toggle(
+            "active",
+            item.dataset.route === place
+        );
+
+    });
+
+    mapPoints.forEach(point => {
+
+        point.classList.toggle(
+            "active",
+            point.dataset.place === place
+        );
+
+    });
+
+}
+
+
+routeItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        activatePlace(item.dataset.route);
+
+    });
+
+});
+
+
+mapPoints.forEach(point => {
+
+    point.addEventListener("click", () => {
+
+        activatePlace(point.dataset.place);
+
+    });
+
+});
+
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+const counters =
+document.querySelectorAll(".stat-number");
+
+let countersStarted = false;
+
+
+const counterObserver =
+new IntersectionObserver(entries => {
+
+    if(entries[0].isIntersecting && !countersStarted){
+
+        countersStarted = true;
+
+        counters.forEach(counter => {
+
+            const target =
+                Number(counter.dataset.target);
+
+            const duration = 1100;
+
+            const startTime =
+                performance.now();
+
+            function update(currentTime){
+
+                const progress =
+                    Math.min(
+                        (currentTime - startTime) / duration,
+                        1
+                    );
+
+                const eased =
+                    1 - Math.pow(1 - progress, 3);
+
+                counter.textContent =
+                    Math.floor(target * eased) +
+                    (target === 98 ? "%" : "+");
+
+                if(progress < 1){
+
+                    requestAnimationFrame(update);
+
+                }
+
+            }
+
+            requestAnimationFrame(update);
+
+        });
+
+        counterObserver.disconnect();
+
+    }
+
+},{
+    threshold:.4
+});
+
+
+const statsSection =
+document.querySelector(".stats");
+
+counterObserver.observe(statsSection);
+
+
+/* =========================================================
+   GALLERY MODAL
+========================================================= */
+
+const galleryImages =
+document.querySelectorAll(".gallery-item img");
+
+const modal =
+document.getElementById("imageModal");
+
+const modalImage =
+document.getElementById("modalImage");
+
+const modalClose =
+document.getElementById("modalClose");
+
+
+galleryImages.forEach(image => {
+
+    image.parentElement.addEventListener("click", () => {
+
+        modalImage.src = image.src;
+
+        modal.classList.add("open");
+
+    });
+
+});
+
+
+function closeModal(){
+
+    modal.classList.remove("open");
+
+    setTimeout(() => {
+        modalImage.src = "";
+    },200);
+
+}
+
+
+modalClose.addEventListener("click", closeModal);
+
+
+modal.addEventListener("click", event => {
+
+    if(event.target === modal){
+        closeModal();
+    }
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+    if(event.key === "Escape"){
+        closeModal();
+    }
+
+});
+
+
+/* =========================================================
+   TRIP SEARCH
+========================================================= */
+
+const searchBtn =
+document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", () => {
+
+    const destination =
+        document.getElementById("destinationSelect").value;
+
+    const style =
+        document.getElementById("styleSelect").value;
+
+    const duration =
+        document.getElementById("durationSelect").value;
+
+    if(!destination && !style && !duration){
+
+        document
+            .getElementById("experiences")
+            .scrollIntoView({
+                behavior:"smooth"
+            });
+
+        return;
+    }
+
+    document
+        .getElementById("experiences")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+});
+
+
+/* =========================================================
+   IMAGE ERROR FALLBACK
+   Prevents ugly broken-image icons.
+========================================================= */
+
+document.querySelectorAll("img").forEach(img => {
+
+    img.addEventListener("error", () => {
+
+        img.style.background =
+            "linear-gradient(135deg,#173f34,#6c8c76)";
+
+        img.removeAttribute("src");
+
+    });
+
+});
+
+
+/* =========================================================
+   OPTIONAL LIGHTWEIGHT HERO MOTION
+   Uses requestAnimationFrame instead of continuously
+   changing expensive layout properties.
+========================================================= */
+
+const heroBg =
+document.querySelector(".hero-bg");
+
+let ticking = false;
+
+window.addEventListener("scroll", () => {
+
+    if(!ticking){
+
+        window.requestAnimationFrame(() => {
+
+            if(window.innerWidth > 900){
+
+                const y =
+                    Math.min(window.scrollY * .035, 18);
+
+                heroBg.style.transform =
+                    `scale(1.02) translateY(${y}px)`;
+
+            }
+
+            ticking = false;
+
+        });
+
+        ticking = true;
+
+    }
+
+},{passive:true});
+
+
+</script>
+
+</body>
+</html>
